@@ -1,18 +1,14 @@
 version: '3.7'
 
 services:
-
   app:
     container_name: front
     command: npm start
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    build: ./
     environment:
         NODE_ENV: "development"
         CHOKIDAR_USEPOLLING: "true"
     volumes:
-      - '.:/app'
-      - '/app/node_modules'
+      - ./www:/www/app
     ports:
-      - 4001:3000
+      - ${PORT}:3000
