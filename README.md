@@ -1,8 +1,4 @@
-# crickobet1
 
-
-```Clone dev branch```
-=======
 ## Install
 
 **Create app**<br>
@@ -12,6 +8,6 @@
 ```docker-compose up -d```<br>
 ```docker-compose stop```<br>
 
-```localhost:4001``` - nginx<br>
+```localhost:4001```
 
 
