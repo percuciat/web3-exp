@@ -9,6 +9,6 @@ services:
         NODE_ENV: "development"
         CHOKIDAR_USEPOLLING: "true"
     volumes:
-      - ./www:/www/app
+      - ./www:/var/www
     ports:
       - ${PORT}:3000
