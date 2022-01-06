@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Sanctum, AxiosInstance } from "react-sanctum";
+import { LoginButton } from "./components";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const sanctumConfig = {
+  apiUrl: "http://api.thelabyrinth.world",
+  csrfCookieRoute: "sanctum/csrf-cookie",
+  signInRoute: "api/auth/login",
+  signOutRoute: "api/logout",
+  userObjectRoute: "api/user",
+  axiosInstance: AxiosInstance,
+};
 
-export default App;
+const App = () => (
+  <div className="my-application">
+    <Sanctum config={sanctumConfig} checkOnInit={false}>
+      <h1>registration</h1>
+      <LoginButton/>
+    </Sanctum>
+  </div>
+);
+
+export default App
