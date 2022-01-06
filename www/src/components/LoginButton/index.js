@@ -1,29 +1,32 @@
 import React from "react";
-import {useSanctum} from "react-sanctum";
+import apiClient from '../../api'
 
 const LoginButton = () => {
-  const {authenticated, user, signIn} = useSanctum();
-
-  const handleLogin = () => {
+  /*const handleLogin = () => {
+    // TODO delete after normalize auth operation
     const email = "test@test.ru";
     const password = "qwerty12";
-    const remember = true;
 
-    signIn(email, password, remember)
-      .then((res) => {
-        window.alert("Signed in!");
-        console.log('res--', res)
-      })
-      .catch(() => window.alert("Incorrect email or password"));
+    apiClient.post('api/auth/login', {
+      email: email,
+      password: password
+    }).then(response => {
+      console.log('token taking', response.data)
+      const token = response.data.token;
+
+      apiClient.get('api/user', {headers: {"Authorization": `Bearer ${token}`}})
+        .then(res => {
+          console.log(res.data);
+          /!*setAuth(true)*!/
+        }).catch((e) => {
+        console.log('ERROR sending token--', e)
+      });
+
+    });
   };
-
-  console.log('user--', user);
-  console.log('authenticated--', authenticated);
-  console.log('signIn--', signIn);
-
   return (
-    authenticated ? <h1>Welcome, {user.name}</h1> : <button onClick={handleLogin}>Sign in</button>
-)
-};
+    <button onClick={handleLogin}>Sign in</button>
+  )*/
+}
 
 export default LoginButton;

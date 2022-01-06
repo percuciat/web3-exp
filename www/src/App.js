@@ -1,23 +1,14 @@
 import React from "react";
-import { Sanctum, AxiosInstance } from "react-sanctum";
-import { LoginButton } from "./components";
+import {useRoutes} from "react-router-dom";
+import routes from './routes'
 
-const sanctumConfig = {
-  apiUrl: "http://api.thelabyrinth.world",
-  csrfCookieRoute: "sanctum/csrf-cookie",
-  signInRoute: "api/auth/login",
-  signOutRoute: "api/logout",
-  userObjectRoute: "api/user",
-  axiosInstance: AxiosInstance,
+const App = () => {
+  const elementPage = useRoutes(routes);
+  return (
+    <div className="my-application">
+      {elementPage}
+    </div>
+  )
 };
 
-const App = () => (
-  <div className="my-application">
-    <Sanctum config={sanctumConfig} checkOnInit={false}>
-      <h1>registration</h1>
-      <LoginButton/>
-    </Sanctum>
-  </div>
-);
-
-export default App
+export default App;
