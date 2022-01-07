@@ -1,11 +1,12 @@
 import React from "react";
+import { JsonRpc } from 'eosjs'
 // import * as Waxjs from '@waxio/waxjs'
 
-const defaultState = {
+/*const defaultState = {
   activeUser: null,
   accountName: '',
   accountBalance: null,
-}
+}*/
 
 /*const WaxBtn = () => {
   return (
@@ -13,15 +14,37 @@ const defaultState = {
   )
 };*/
 
+const demoTransaction = {
+  actions: [{
+    account: 'adentokenwam',
+    name: 'transfer',
+    authorization: [{
+      actor: '', // use account that was logged in
+      permission: 'owner',
+    }],
+    data: {
+      /*id: 4,
+      nonce:	"b2aa7cae7b808ec830e73425399483d7e73d282f299977eb69e414095af369a8",*/
+      from: 'percuicatwax',
+      to: 'adenmytest11',
+      quantity: '1.0000 LABA',
+      memo: 'UAL rocks!',
+    },
+  }],
+}
+
+
 class WaxBtn extends React.Component {
   displayName = 'WaxBtn'
 
   constructor(props) {
     super(props)
     this.state = {
-      ...defaultState,
-      // rpc: new JsonRpc(`${EXAMPLE_ENV.RPC_PROTOCOL}://${EXAMPLE_ENV.RPC_HOST}:${EXAMPLE_ENV.RPC_PORT}`)
-      rpc: ''/*new Waxjs(`https://wax.greymass.com:443`)*/
+      /*...defaultState,*/
+      activeUser: null,
+      accountName: '',
+      accountBalance: null,
+      rpc: new JsonRpc(`https://waxtestnet.greymass.com:443`)
     }
     this.updateAccountBalance = this.updateAccountBalance.bind(this)
     this.updateAccountName = this.updateAccountName.bind(this)
@@ -59,35 +82,40 @@ class WaxBtn extends React.Component {
   }
 
   async transfer() {
-    const {accountName, activeUser} = this.state
-    demoTransaction.actions[0].authorization[0].actor = accountName
-    demoTransaction.actions[0].data.from = accountName
+    const {accountName, activeUser} = this.state;
+    console.log('activeUser--', activeUser)
+    demoTransaction.actions[0].authorization[0].actor = accountName;
+    demoTransaction.actions[0].data.from = accountName;
     try {
-      await activeUser.signTransaction(demoTransaction, {broadcast: true})
+      await activeUser.signTransaction(demoTransaction,  {
+        blocksBehind: 3,
+        expireSeconds: 30
+      });
       await this.updateAccountBalance()
     } catch (error) {
+
       console.warn(error)
     }
   }
 
   renderModalButton() {
     return (
-      <p className='ual-btn-wrapper'>
+      <button className='ual-btn-wrapper btn btn-primary'>
         <span
           role='button'
           onClick={this.props.ual.showModal}
           className='ual-generic-button'>Show UAL Modal</span>
-      </p>
+      </button>
     )
   }
 
   renderTransferButton() {
     return (
-      <p className='ual-btn-wrapper'>
+      <button className='ual-btn-wrapper btn btn-success'>
         <span className='ual-generic-button blue' onClick={this.transfer}>
           {'Transfer 1 eos to example'}
         </span>
-      </p>
+      </button>
     )
   }
 
@@ -95,11 +123,11 @@ class WaxBtn extends React.Component {
     const {ual: {activeUser, activeAuthenticator, logout}} = this.props
     if (!!activeUser && !!activeAuthenticator) {
       return (
-        <p className='ual-btn-wrapper'>
+        <button className='ual-btn-wrapper btn btn-primary'>
           <span className='ual-generic-button red' onClick={logout}>
             {'Logout'}
           </span>
-        </p>
+        </button>
       )
     }
   }
