@@ -6,7 +6,6 @@ export const addToken = createAsyncThunk('auth/ADD_TOKEN', function prepare(toke
   return token
 });
 
-
 export const sendToken = createAsyncThunk(
   'auth/SEND_TOKEN',
   async (dataToken, {getState, dispatch, rejectWithValue}) => {
@@ -33,7 +32,6 @@ export const loginUser = createAsyncThunk(
     } catch (e) {
       console.log('ERROR sending token--', e);
       return rejectWithValue(e.response.data)
-      /*return e*/
     }
   }
 );
@@ -59,15 +57,31 @@ export const registerUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   'auth/AUTH_LOGOUT',
-  async (_, thunkAPI) => {
+  async (_, {getState}) => {
+    /*console.log('getState', getState())*/
+    const {auth} = getState()
     try {
-      const response = await apiClient.post('api/auth/logout');
-      console.log('response.data LOGOUT', response.data);
+      const response = await apiClient.get('api/auth/logout', {headers: {"Authorization": `Bearer ${auth.token}`}});
+      /*console.log('response.data LOGOUT', response.data);*/
       return response.data
     } catch (e) {
-      console.log('ERROR Register--', e);
       return e
     }
   }
 );
+
+export const updateProfile = createAsyncThunk(
+  'auth/UPDATE_PROFILE',
+  async (wallet, {getState,  dispatch, rejectWithValue}) => {
+    const {auth} = getState()
+    try {
+      const response = await apiClient.put('api/profile', {
+        wallet
+      }, { headers: {"Authorization": `Bearer ${auth.token}`},});
+      console.log('response.data UPDATE', response.data);
+      return response.data
+    } catch (e) {
+      return rejectWithValue(e.response.data)
+    }
+  });
 

@@ -1,9 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const {actions, reducer} = createSlice({
-  name: 'mine',
+  name: 'profile',
   initialState: {
-    isVerify: false,
+    profile: false,
   },
   reducers: {
     verifyUser(state) {

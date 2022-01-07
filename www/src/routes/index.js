@@ -25,13 +25,6 @@ function RequireAuth() {
   return <Outlet/>;
 }
 
-const users = [
-  {id: '1', linkName: '', namePage: 'Labyrinth page'},
-  {id: '2', linkName: '', namePage: 'Central Square page'},
-  {id: '3', linkName: '', namePage: 'Potato fields page'},
-  {id: '4', linkName: '', namePage: 'Government page'},
-];
-
 
 const routes = [
   {
@@ -47,9 +40,6 @@ const routes = [
           {
             path: "navigation",
             element: <NavigationPage/>,
-            /*children: [
-              {path: ':linkName', element: <LocationPage />},
-            ]*/
           },
           {
             path: "profile",

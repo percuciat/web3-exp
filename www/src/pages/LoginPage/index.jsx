@@ -1,51 +1,94 @@
 import React, {useLayoutEffect, useState} from "react";
-import Form from 'react-bootstrap/Form';
+import {Form} from 'react-bootstrap';
 import {useDispatch, useSelector} from 'react-redux'
-import { loginUser } from '../../store/slices/auth/action'
+import {loginUser} from '../../store/slices/auth/action'
 import {selectIsAuth} from "../../store/slices/auth";
-import {Navigate, useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {Error, AlertForm} from '../../components';
+import {Form as FormFinal, Field} from 'react-final-form'
+
 
 //  test@test.ru
 // qwerty12
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const required = (value) => (!value && "Required");
   const navigate = useNavigate();
   const auth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
-  const handleLogin = (e) => {
-    e.preventDefault();
-   dispatch(loginUser({
-     email,
-     password
-   }));
+
+  const handleLogin = ({email, password}) => {
+    setError(null)
+    dispatch(loginUser({
+      email,
+      password
+    })).then(r => {
+      // TODO поменять после исправления ответа
+      console.log('r.payload--', r.payload)
+      if (r.payload) {
+        if (typeof r.payload === 'string') {
+          setError(r.payload)
+        } else {
+          setError({
+            msg: r.payload?.message,
+            errorsObj: r.payload?.errors
+          })
+        }
+      }
+    }).catch(e => {
+      console.log('err login', e)
+    })
   };
 
   useLayoutEffect(() => {
     if (auth) {
-      navigate('/', { replace: true })
+      navigate('/', {replace: true})
     }
   }, [auth]);
 
   return (
     <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-      <Form className="form-login">
-        <h1>Please login</h1>
-        <Form.Group controlId="form.Email">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email"
-                        placeholder="name@example.com"
-                        onChange={(e) => setEmail(e.target.value)}/>
-        </Form.Group>
-        <Form.Group controlId="form.Password">
-          <Form.Label>Name</Form.Label>
-          <Form.Control type="password"
-                        placeholder="password"
-                        onChange={(e) => setPassword(e.target.value)}/>
-        </Form.Group>
-        <button onClick={handleLogin}>Sign in</button>
-      </Form>
+      <FormFinal onSubmit={handleLogin}>
+        {({form, submitting, pristine, values, handleSubmit}) => (
+          <Form className="form-login" onSubmit={handleSubmit}>
+            <h1>Login</h1>
+            <Field name="email" validate={required}>
+              {
+                ({input, meta}) => (
+                  <Form.Group>
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control type="email"
+                                  placeholder="name@example.com"
+                                  {...input}/>
+                    <Error meta={meta}/>
+                  </Form.Group>
+                )
+              }
+            </Field>
+            <Field name="password" validate={required}>
+              {
+                ({input, meta}) => (
+                  <Form.Group>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password"
+                                  placeholder="password"
+                                  {...input}/>
+                    <Error meta={meta}/>
+                  </Form.Group>
+                )
+              }
+            </Field>
+            <button type="submit" className="btn btn-primary"
+                    disabled={submitting || pristine}>
+              Sign in
+            </button>
+          </Form>
+        )}
+      </FormFinal>
+      {
+        error && <AlertForm error={error}/>
+      }
     </div>
   )
 };

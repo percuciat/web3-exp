@@ -1,5 +1,9 @@
-import LoginButton from './LoginButton'
+import Error from './Error'
+import WaxBtn from './WaxBtn'
+import AlertForm from './AlertForm'
 
 export {
-  LoginButton
+  AlertForm,
+  Error,
+  WaxBtn
 }

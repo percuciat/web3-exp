@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {loginUser, registerUser, sendToken, addToken, logoutUser} from './action'
+import {loginUser, registerUser, sendToken, addToken, logoutUser, updateProfile} from './action'
 
 const {actions, reducer} = createSlice({
   name: 'auth',
@@ -8,9 +8,13 @@ const {actions, reducer} = createSlice({
     isLoading: false,
     token: null,
     userData: null,
-    errorsObj: null
+    errorsObj: null,
+    isVerify: false,
   },
   reducers: {
+    verifyUser(state) {
+      state.isVerify = true
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -38,11 +42,8 @@ const {actions, reducer} = createSlice({
       })
 
       .addCase(registerUser.rejected, (state, action) => {
-        console.log('REJECTED REGISTER', action.payload)
         state.errorsObj = action.payload;
         state.isLoading = false;
-        /* state.isAuth = false;
-        state.isLoading = false;*/
       })
 
       .addCase(sendToken.fulfilled, (state, action) => {
@@ -68,12 +69,25 @@ const {actions, reducer} = createSlice({
         state.userData = null;
         state.token = null;
       })
+
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        // action.payload
+        console.log('action.payload LOGOUT', action.payload)
+        state.userData.wallet = action.payload;
+      })
+
+      .addCase(updateProfile.rejected, (state, action) => {
+        console.log('error update profile', action.payload)
+      })
   }
 });
+export const {verifyUser} = actions;
 
+export const selectIsVerify = (state) => state.auth.isVerify;
 export const selectIsAuth = (state) => state.auth.isAuth;
 export const selectUserData = (state) => state.auth.userData;
 export const selectErrorsObj = (state) => state.auth.errorsObj;
 export const selectToken = (state) => state.auth.token;
 export const selectIsLoading = (state) => state.auth.isLoading;
+
 export default reducer

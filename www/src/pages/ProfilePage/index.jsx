@@ -1,22 +1,64 @@
-import React from "react";
+import React, {useState} from "react";
+import {Form} from 'react-bootstrap';
+import {Form as FormFinal, Field} from 'react-final-form'
+import {AlertForm, Error} from "../../components";
+import {useDispatch} from "react-redux";
+import {updateProfile} from "../../store/slices/auth/action";
 
 const ProfilePage = () => {
+  // PUT api/profile/update + token header
+  const [error, setError] = useState(null);
+  const required = (value) => (!value && "Required");
+  const dispatch = useDispatch();
+
+  const handleUpdateProfile = ({wallet}) => {
+    setError(null)
+    dispatch(updateProfile(wallet)).then(r => {
+      console.log('r.payload--', r.payload)
+      // TODO поменять после исправления ответа
+      if (r.payload) {
+        if (typeof r.payload === 'string') {
+          setError(r.payload)
+        } else if(r.payload.errors) {
+          setError({
+            msg: r.payload?.message,
+            errorsObj: r.payload?.errors
+          })
+        } else {
+          setError(r.payload)
+        }
+      }
+    })
+  }
   return (
     <>
-      <h1>Profile Page</h1>
-      <form className="form-login">
-        {/* <input name="_method" type="hidden" value="PUT">
-      <input name="_token" type="hidden" value="qGv0O67TwwlO3SuO8KZYYpbSTLEICFLN3xiiBS9l">*/}
-        <div className="mb-3">
-          <label htmlFor="exampleFormControlInput1" className="form-label">Wax wallet
-            <span>authorize with wax cloud wallet</span>
-          </label>
-          <input name="wallet" type="text" placeholder="uo.bi.wam" className="form-control"/>
-        </div>
-        <div>
-          <button value="Update" className="btn btn-dark">Update profile</button>
-        </div>
-      </form>
+      <FormFinal onSubmit={handleUpdateProfile}>
+        {({form, submitting, pristine, values, handleSubmit}) => (
+          <Form className="form-login" onSubmit={handleSubmit}>
+            <h1>Profile update</h1>
+            <Field name="wallet" validate={required}>
+              {
+                ({input, meta}) => (
+                  <Form.Group className="mb-3">
+                    <Form.Label className="form-label">Authorize with wax cloud wallet</Form.Label>
+                    <Form.Control className="form-control" type="text"
+                                  placeholder="uo.bi.wam"
+                                  {...input}/>
+                    <Error meta={meta}/>
+                  </Form.Group>
+                )
+              }
+            </Field>
+            <button type="submit" className="btn btn-dark"
+                    disabled={submitting || pristine}>
+              Update profile
+            </button>
+          </Form>
+        )}
+      </FormFinal>
+      {
+        error && <AlertForm error={error}/>
+      }
     </>
   )
 };
