@@ -6,33 +6,30 @@ import {useDispatch} from "react-redux";
 import {updateProfile} from "../../store/slices/auth/action";
 
 const ProfilePage = () => {
-  // PUT api/profile/update + token header
-  const [error, setError] = useState(null);
+  const [backendValidation, setBackendValidation] = useState(null);
   const required = (value) => (!value && "Required");
   const dispatch = useDispatch();
 
   const handleUpdateProfile = ({wallet}) => {
-    setError(null)
+    setBackendValidation(null);
     dispatch(updateProfile(wallet)).then(r => {
-      console.log('r.payload--', r.payload)
-      // TODO поменять после исправления ответа
+      // TODO for async operation - need fix
       if (r.payload) {
-        if (typeof r.payload === 'string') {
-          setError(r.payload)
-        } else if(r.payload.errors) {
-          setError({
-            msg: r.payload?.message,
-            errorsObj: r.payload?.errors
-          })
-        } else {
-          setError(r.payload)
-        }
+        setBackendValidation(r.payload)
       }
+    }).catch(e => {
+      console.log('error update PROFILE--', e)
     })
-  }
+  };
   return (
-    <>
-      <FormFinal onSubmit={handleUpdateProfile}>
+    <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+      <FormFinal onSubmit={handleUpdateProfile} validate={values => {
+        const errors = {};
+        if (values.wallet && values.wallet.length < 11) {
+          errors.wallet = `Wallet must be more than ${values.wallet.length} chars.`
+        }
+        return errors
+      }}>
         {({form, submitting, pristine, values, handleSubmit}) => (
           <Form className="form-login" onSubmit={handleSubmit}>
             <h1>Profile update</h1>
@@ -45,6 +42,10 @@ const ProfilePage = () => {
                                   placeholder="uo.bi.wam"
                                   {...input}/>
                     <Error meta={meta}/>
+                    {
+                      backendValidation?.errors &&
+                      <AlertForm danger={true} alertMsg={backendValidation.errors['wallet']}/>
+                    }
                   </Form.Group>
                 )
               }
@@ -57,9 +58,9 @@ const ProfilePage = () => {
         )}
       </FormFinal>
       {
-        error && <AlertForm error={error}/>
+        !backendValidation?.errors && backendValidation?.message && <AlertForm alertMsg={backendValidation.message}/>
       }
-    </>
+    </div>
   )
 };
 

@@ -1,34 +1,29 @@
-import {createAsyncThunk, createAction} from "@reduxjs/toolkit";
-import apiClient from "../../../api";
-
-
-export const addToken = createAsyncThunk('auth/ADD_TOKEN', function prepare(token) {
-  return token
-});
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import makeRequest from "../../../utils/api";
 
 export const sendToken = createAsyncThunk(
-  'auth/SEND_TOKEN',
+  'auth/AUTH_USER',
   async (dataToken, {getState, dispatch, rejectWithValue}) => {
-  if (dataToken) {
-    dispatch(addToken(dataToken));
-    const answerAuth = await apiClient.get('api/user', {headers: {"Authorization": `Bearer ${dataToken}`}});
-    return answerAuth.data
-  } else {
-    return rejectWithValue('token Not valid')
-  }
+    try {
+      const answerAuth = await makeRequest('api/user', 'get', {}, {authorization: true});
+      return answerAuth.data
+    } catch (e) {
+      return rejectWithValue('token Not valid', e.response.data)
+    }
 });
 
+// export const refreshToken
 
 export const loginUser = createAsyncThunk(
   'auth/AUTH_LOGIN',
   async (dataForm, { getState, dispatch, rejectWithValue  }) => {
     const { email, password } = dataForm;
     try {
-      const response = await apiClient.post('api/auth/login', {
+      const response = await makeRequest('api/auth/login', 'post', {
         email,
         password
       });
-      dispatch(sendToken(response.data.token))
+      return response.data.token
     } catch (e) {
       console.log('ERROR sending token--', e);
       return rejectWithValue(e.response.data)
@@ -42,12 +37,12 @@ export const registerUser = createAsyncThunk(
   async (dataForm, {dispatch, rejectWithValue}) => {
     const { email, password, password_confirmation } = dataForm;
     try {
-      const response = await apiClient.post('api/auth/register', {
+      const response = await makeRequest('api/auth/register', 'post', {
         email,
         password,
         password_confirmation
       });
-      dispatch(sendToken(response.data.token))
+      return response.data.token
     } catch (e) {
       console.log('ERROR Register--', e);
       return rejectWithValue(e.response.data)
@@ -57,15 +52,13 @@ export const registerUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   'auth/AUTH_LOGOUT',
-  async (_, {getState}) => {
-    /*console.log('getState', getState())*/
-    const {auth} = getState()
+  async (_, {rejectWithValue}) => {
     try {
-      const response = await apiClient.get('api/auth/logout', {headers: {"Authorization": `Bearer ${auth.token}`}});
-      /*console.log('response.data LOGOUT', response.data);*/
+      const response = await makeRequest('api/auth/logout', 'get', {}, {authorization: true});
       return response.data
     } catch (e) {
-      return e
+      console.log('e LOGOUT', e)
+      return rejectWithValue(e.response.data)
     }
   }
 );
@@ -73,14 +66,12 @@ export const logoutUser = createAsyncThunk(
 export const updateProfile = createAsyncThunk(
   'auth/UPDATE_PROFILE',
   async (wallet, {getState,  dispatch, rejectWithValue}) => {
-    const {auth} = getState()
     try {
-      const response = await apiClient.put('api/profile', {
-        wallet
-      }, { headers: {"Authorization": `Bearer ${auth.token}`},});
-      console.log('response.data UPDATE', response.data);
+      const response = await makeRequest('api/profile', 'put', {wallet}, {authorization: true});
+      response.data.wallet = wallet;
       return response.data
     } catch (e) {
+      console.log('e updateProfile', e)
       return rejectWithValue(e.response.data)
     }
   });

@@ -16,6 +16,28 @@ nav {
     box-shadow: 0px 5px 0.25rem rgb(255 255 255 / 19%) !important;
 }
 
+.account-name{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: orange;
+}
+
+.account-wrapper {
+    margin: auto;
+    display: grid;
+    grid-row-gap: 1rem;
+    width: 300px;
+}
+.account-block{
+    display: flex;
+    justify-content: space-between;
+}
+.account-balance{
+    font-size: 2rem;
+    font-weight: bold;
+    color: orange;
+}
+
 .error-form__wrapper{
     margin: 1rem 0;
     padding: 1rem;

@@ -1,9 +1,9 @@
 import React, {useLayoutEffect, useState} from "react";
 import {Form} from 'react-bootstrap';
 import {useDispatch, useSelector} from 'react-redux'
-import {loginUser} from '../../store/slices/auth/action'
+import {loginUser, sendToken} from '../../store/slices/auth/action'
 import {selectIsAuth} from "../../store/slices/auth";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Navigate} from "react-router-dom";
 import {Error, AlertForm} from '../../components';
 import {Form as FormFinal, Field} from 'react-final-form'
 
@@ -12,40 +12,38 @@ import {Form as FormFinal, Field} from 'react-final-form'
 // qwerty12
 
 const LoginPage = () => {
-  const [error, setError] = useState(null);
+  const [backendValidation, setBackendValidation] = useState(null);
   const required = (value) => (!value && "Required");
   const navigate = useNavigate();
   const auth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
 
   const handleLogin = ({email, password}) => {
-    setError(null)
+    setBackendValidation(null)
     dispatch(loginUser({
       email,
       password
     })).then(r => {
-      // TODO поменять после исправления ответа
-      console.log('r.payload--', r.payload)
-      if (r.payload) {
-        if (typeof r.payload === 'string') {
-          setError(r.payload)
-        } else {
-          setError({
-            msg: r.payload?.message,
-            errorsObj: r.payload?.errors
-          })
-        }
+      // TODO for async operation - need fix
+      if(r.payload.errors) {
+        setBackendValidation(r.payload)
       }
     }).catch(e => {
       console.log('err login', e)
     })
   };
 
+
+
   useLayoutEffect(() => {
     if (auth) {
       navigate('/', {replace: true})
     }
   }, [auth]);
+
+  if(auth) {
+    return <Navigate to="/" replace={true}/>
+  }
 
   return (
     <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -62,6 +60,10 @@ const LoginPage = () => {
                                   placeholder="name@example.com"
                                   {...input}/>
                     <Error meta={meta}/>
+                    {
+                      backendValidation?.errors &&
+                      <AlertForm danger={true} alertMsg={backendValidation.errors['email']}/>
+                    }
                   </Form.Group>
                 )
               }
@@ -75,6 +77,10 @@ const LoginPage = () => {
                                   placeholder="password"
                                   {...input}/>
                     <Error meta={meta}/>
+                    {
+                      backendValidation?.errors &&
+                      <AlertForm danger={true} alertMsg={backendValidation.errors['password']}/>
+                    }
                   </Form.Group>
                 )
               }
@@ -86,9 +92,6 @@ const LoginPage = () => {
           </Form>
         )}
       </FormFinal>
-      {
-        error && <AlertForm error={error}/>
-      }
     </div>
   )
 };

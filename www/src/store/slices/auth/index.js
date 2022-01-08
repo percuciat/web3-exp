@@ -1,12 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {loginUser, registerUser, sendToken, addToken, logoutUser, updateProfile} from './action'
+import {Storage} from '../../../utils/storage'
 
 const {actions, reducer} = createSlice({
   name: 'auth',
   initialState: {
-    isAuth: false,
+    isAuth: !!Storage.getStorage('token'),
     isLoading: false,
-    token: null,
+    token: Storage.getStorage('token'),
     userData: null,
     errorsObj: null,
     isVerify: false,
@@ -19,16 +20,18 @@ const {actions, reducer} = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state, action) => {
-        state.isAuth = false;
         state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isAuth = true;
+        Storage.setStorage('token', action.payload);
+        state.token = action.payload;
         state.isLoading = false;
       })
 
       .addCase(loginUser.rejected, (state, action) => {
-        state.isAuth = false;
+        // state.isAuth = false;
+        // state.errorsObj = action.payload;
         state.isLoading = false;
       })
 
@@ -37,12 +40,14 @@ const {actions, reducer} = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isAuth = true;
+        Storage.setStorage('token', action.payload);
+        state.token = action.payload;
         state.isLoading = false;
-        state.errorsObj = null
+        // state.errorsObj = null
       })
 
       .addCase(registerUser.rejected, (state, action) => {
-        state.errorsObj = action.payload;
+        // state.errorsObj = action.payload;
         state.isLoading = false;
       })
 
@@ -53,27 +58,19 @@ const {actions, reducer} = createSlice({
       })
 
       .addCase(sendToken.rejected, (state, action) => {
-        state.userData = null;
+        // state.userData = null;
         state.isLoading = false;
       })
 
-      .addCase(addToken.fulfilled, (state, action) => {
-        // action.payload
-        state.token = action.payload;
-      })
-
       .addCase(logoutUser.fulfilled, (state, action) => {
-        // action.payload
-        console.log('action.payload LOGOUT', action.payload)
         state.isAuth = false;
         state.userData = null;
         state.token = null;
+        Storage.removeStorage('token');
       })
 
       .addCase(updateProfile.fulfilled, (state, action) => {
-        // action.payload
-        console.log('action.payload LOGOUT', action.payload)
-        state.userData.wallet = action.payload;
+        state.userData.wallet = action.payload.wallet;
       })
 
       .addCase(updateProfile.rejected, (state, action) => {

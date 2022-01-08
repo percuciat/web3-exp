@@ -1,18 +1,5 @@
 import React from "react";
-import { JsonRpc } from 'eosjs'
-// import * as Waxjs from '@waxio/waxjs'
-
-/*const defaultState = {
-  activeUser: null,
-  accountName: '',
-  accountBalance: null,
-}*/
-
-/*const WaxBtn = () => {
-  return (
-    <button>dsfds</button>
-  )
-};*/
+import {JsonRpc} from 'eosjs'
 
 const demoTransaction = {
   actions: [{
@@ -87,13 +74,12 @@ class WaxBtn extends React.Component {
     demoTransaction.actions[0].authorization[0].actor = accountName;
     demoTransaction.actions[0].data.from = accountName;
     try {
-      await activeUser.signTransaction(demoTransaction,  {
+      await activeUser.signTransaction(demoTransaction, {
         blocksBehind: 3,
         expireSeconds: 30
       });
       await this.updateAccountBalance()
     } catch (error) {
-
       console.warn(error)
     }
   }
@@ -136,16 +122,25 @@ class WaxBtn extends React.Component {
     const {ual: {activeUser}} = this.props
     const {accountBalance, accountName} = this.state
     const modalButton = !activeUser && this.renderModalButton()
-    const loggedIn = accountName ? `Logged in as ${accountName}` : ''
-    const myBalance = accountBalance ? `Balance: ${accountBalance}` : ''
     const transferBtn = accountBalance && this.renderTransferButton()
+    // TODO настроить появление
     return (
-      <div style={{textAlign: 'center'}}>
+      <div className="account-wrapper">
         {modalButton}
-        <h3 className='ual-subtitle'>{loggedIn}</h3>
-        <h4 className='ual-subtitle'>{myBalance}</h4>
-        {transferBtn}
-        {this.renderLogoutBtn()}
+        {accountName && (
+          <h3 className='ual-subtitle'>
+            Logged in as <span className="account-name"> {accountName}</span>
+          </h3>
+        )}
+        {accountBalance && (
+          <h4 className='ual-subtitle'>
+            Balance: <span className="account-name">{accountBalance}</span>
+          </h4>
+        )}
+        {accountBalance && (<div className="account-block">
+          {transferBtn}
+          {this.renderLogoutBtn()}
+        </div>)}
       </div>
     )
   }

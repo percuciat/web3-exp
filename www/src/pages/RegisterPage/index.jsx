@@ -1,53 +1,35 @@
 import React, {useLayoutEffect, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux'
-import {registerUser} from '../../store/slices/auth/action'
-import {selectIsAuth, selectErrorsObj} from "../../store/slices/auth";
-import {useNavigate} from "react-router-dom";
-import {Form, Alert} from 'react-bootstrap';
+import {registerUser, sendToken} from '../../store/slices/auth/action'
+import {selectIsAuth} from "../../store/slices/auth";
+import {Navigate, useNavigate} from "react-router-dom";
+import {Form} from 'react-bootstrap';
 import {AlertForm, Error} from '../../components';
 import {Form as FormFinal, Field} from 'react-final-form';
 
 
 const RegisterPage = () => {
-  const [error, setError] = useState(null);
+  const [backendValidation, setBackendValidation] = useState(null);
   const navigate = useNavigate();
   const auth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
-
   const required = (value) => (!value && "Required");
-  /*const equal = (value) => {
-    console.log('value', value)
-  }
-  const minValue = (min) => (value) =>
-    isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
-  const composeValidators = (...validators) => (value) =>
-    validators.reduce((error, validator) => error || validator(value), undefined);*/
 
   const handleRegister = ({email, password, password_confirmation}) => {
-    setError(null)
-    if (password !== password_confirmation) {
-      setError('passwords mismatched')
-    } else {
-      dispatch(registerUser({
-        email,
-        password,
-        password_confirmation
-      })).then(r => {
-        // TODO поменять после исправления ответа
-        if (r.payload) {
-          if (typeof r.payload === 'string') {
-            setError(r.payload)
-          } else {
-            setError({
-              msg: r.payload?.message,
-              errorsObj: r.payload?.errors
-            })
-          }
-        }
-      }).catch(e => {
-        console.log('err login', e)
-      })
-    }
+    setBackendValidation(null);
+    dispatch(registerUser({
+      email,
+      password,
+      password_confirmation
+    })).then(r => {
+      // TODO for async operation - need fix
+      if(r.payload.errors) {
+        setBackendValidation(r.payload)
+      }
+    }).catch(e => {
+      console.log('err login', e)
+    })
+
   };
 
   useLayoutEffect(() => {
@@ -56,9 +38,19 @@ const RegisterPage = () => {
     }
   }, [auth]);
 
+  if(auth) {
+    return <Navigate to="/" replace={true}/>
+  }
+
   return (
     <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-      <FormFinal onSubmit={handleRegister}>
+      <FormFinal onSubmit={handleRegister} validate={values => {
+        const errors = {};
+        if (values.password !== values.password_confirmation) {
+          errors.password_confirmation = 'Passwords mismatched'
+        }
+        return errors
+      }}>
         {({form, submitting, pristine, values, handleSubmit}) => (
           <Form className="form-login" onSubmit={handleSubmit}>
             <h1>Registration</h1>
@@ -71,6 +63,10 @@ const RegisterPage = () => {
                                   placeholder="name@example.com"
                                   {...input}/>
                     <Error meta={meta}/>
+                    {
+                      backendValidation?.errors &&
+                      <AlertForm danger={true} alertMsg={backendValidation.errors['email']}/>
+                    }
                   </Form.Group>
                 )
               }
@@ -84,6 +80,10 @@ const RegisterPage = () => {
                                   placeholder="password"
                                   {...input}/>
                     <Error meta={meta}/>
+                    {
+                      backendValidation?.errors &&
+                      <AlertForm danger={true} alertMsg={backendValidation.errors['password']}/>
+                    }
                   </Form.Group>
                 )
               }
@@ -97,6 +97,10 @@ const RegisterPage = () => {
                                   placeholder="confirm password"
                                   {...input}/>
                     <Error meta={meta}/>
+                    {
+                      backendValidation?.errors &&
+                      <AlertForm danger={true} alertMsg={backendValidation.errors['password_confirmation']}/>
+                    }
                   </Form.Group>
                 )
               }
@@ -108,7 +112,6 @@ const RegisterPage = () => {
           </Form>
         )}
       </FormFinal>
-      {error && <AlertForm error={error}/>}
     </div>
   )
 };

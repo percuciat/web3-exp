@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {MainLayout} from "../layouts";
 import {
   Empty404,
@@ -7,7 +7,10 @@ import {
   ProfilePage,
   RegisterPage,
   NavigationPage,
-  LocationPage
+  LabyrinthPage,
+  PotatoPage,
+  GovernmentPage,
+  SquarePage
 } from "../pages";
 import {Navigate, useLocation, Outlet} from "react-router-dom";
 import {useSelector} from "react-redux";
@@ -40,6 +43,24 @@ const routes = [
           {
             path: "navigation",
             element: <NavigationPage/>,
+            children: [
+              {
+                path: "labyrinth",
+                element: <LabyrinthPage/>,
+              },
+              {
+                path: "potato",
+                element: <PotatoPage/>,
+              },
+              {
+                path: "government",
+                element: <GovernmentPage/>,
+              },
+              {
+                path: "square",
+                element: <SquarePage/>,
+              }
+            ]
           },
           {
             path: "profile",
@@ -48,7 +69,7 @@ const routes = [
         ]
       },
       {
-        path: "register",
+        path: "registration",
         element: <RegisterPage/>
       },
       {

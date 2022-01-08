@@ -1,6 +1,7 @@
 import React from "react";
 import {
-  Link
+  Link,
+  Outlet
 } from "react-router-dom";
 
 const NavigationPage = () => {
@@ -20,6 +21,7 @@ const NavigationPage = () => {
           <Link to="government">Government</Link>
         </li>
       </ul>
+      <Outlet/>
     </>
   )
 };
