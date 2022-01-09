@@ -1,53 +1,47 @@
-import {Link} from "react-router-dom";
 import React from "react";
+import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import {selectIsAuth} from "../../store/slices/auth";
-import {logoutUser} from "../../store/slices/auth/action";
+import Container from "react-bootstrap/Container";
+import {isCorrectMediaScreen} from "../../utils/common/isCorrectMediaScreen";
+import {selectWidthScreen, openMenu} from "../../store/slices/common";
+import MenuLinks from "../../components/MenuLinks";
+import {FaAlignRight} from "react-icons/fa";
+import {TABLET_MEDIA} from "../../consts";
+import styles from './Header.module.css'
 
 const Header = () => {
   const dispatch = useDispatch();
-  const auth = useSelector(selectIsAuth);
-  const handlerLogout = () => {
-    dispatch(logoutUser())
+  const widthScreen = useSelector(selectWidthScreen);
+
+  const handleOpenMenu = () => {
+    dispatch(openMenu());
+    document.body.style.overflow = 'hidden';
   };
+
   return (
-    <header>
-      <nav className="navbar navbar-expand-md navbar-light">
-        <div className="container">
-          <ul className="navbar-nav me-auto">
-            <li className="nav-item">
-              <Link to="/" className="nav-link logo-link">
-                The Labyrinth
-              </Link>
-            </li>
-          </ul>
-          <ul className="navbar-nav ms-auto">
-            {!auth ? (
-              <>
-                <li className="nav-item">
-                  <Link to="login" className="nav-link">Login</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="registration" className="nav-link">Registration</Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <Link to="navigation" className="nav-link">Navigation</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="profile" className="nav-link">Profile</Link>
-                </li>
-                <li className="nav-item">
-                  <span className="nav-link"
-                        onClick={handlerLogout}>Logout</span>
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
-      </nav>
+    <header className={`${styles.header}`}>
+      <Container>
+        <nav className={`${styles.header__wrapper}`}>
+          <div className="nav-item">
+            <Link to="/" className={styles.logo__link}>
+              The Labyrinth
+            </Link>
+          </div>
+          {
+            isCorrectMediaScreen(widthScreen, TABLET_MEDIA.name) &&
+            <MenuLinks/>
+          }
+          {
+            !isCorrectMediaScreen(widthScreen, TABLET_MEDIA.name) &&
+            <button type="button"
+                    title="Menu"
+                    className={styles.toggleBtn}
+                    onClick={handleOpenMenu}>
+              <FaAlignRight/>
+            </button>
+          }
+        </nav>
+      </Container>
     </header>
   )
 };

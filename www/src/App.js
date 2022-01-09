@@ -16,7 +16,7 @@ const App = () => {
     }
   }, []);
   return (
-    <div className="my-application">
+    <div className="wrapperGlobal">
       {elementPage}
     </div>
   )

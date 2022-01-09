@@ -15,7 +15,7 @@ const {actions, reducer} = createSlice({
   reducers: {
     verifyUser(state) {
       state.isVerify = true
-    }
+    },
   },
   extraReducers: (builder) => {
     builder

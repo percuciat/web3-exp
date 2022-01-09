@@ -5,39 +5,9 @@ import reportWebVitals from './reportWebVitals';
 import store from './store'
 import {Provider} from 'react-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
-
-/*
-*
-* UserService.session.signTransaction(
-    {
-        actions: [{
-            account: 'eosio.token',
-            name: 'transfer',
-            authorization: [{
-                actor: UserService.authName,
-                permission: 'active'
-            }],
-            data: {
-                from: UserService.authName,
-                to: '3dkrenderwax',
-                quantity: '1.00000000 WAX',
-                memo: 'This works!'
-            }
-        }]
-    },
-    {
-        blocksBehind: 3,
-        expireSeconds: 30
-    }
-
-).then((response) => {
-    if(response.status === 'executed') {
-        UserService.getBalance();
-    }
-});
-*  */
 
 
 ReactDOM.render(

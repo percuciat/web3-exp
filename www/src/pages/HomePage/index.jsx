@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {BrowserRouter as Router, useSearchParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {selectToken} from '../../store/slices/auth'
@@ -48,24 +48,12 @@ const HomePage = () => {
       })
   }
 
-
-  const testHandler = () => {
-    makeRequest('api/mine', 'get', {}, {authorization: true})
-      .then(r => {
-        console.log('response', r)
-      })
-      .catch(e => {
-        console.log('response', e)
-      })
-  };
-
   return (<>
       <h1>Home</h1>
-     {/* <div>GET PARAMS: {codeParam}</div>
-      <button onClick={testHandler}>Mine</button>
+      <div>GET PARAMS: {codeParam}</div>
       <UALProvider chains={[wax]} authenticators={[wax, anchor]} appName={'My App'}>
         <MyUALConsumer />
-      </UALProvider>*/}
+      </UALProvider>
     </>
   )
 };

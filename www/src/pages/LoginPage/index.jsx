@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useState} from "react";
 import {Form} from 'react-bootstrap';
 import {useDispatch, useSelector} from 'react-redux'
-import {loginUser, sendToken} from '../../store/slices/auth/action'
+import {loginUser} from '../../store/slices/auth/action'
 import {selectIsAuth} from "../../store/slices/auth";
 import {useNavigate, Navigate} from "react-router-dom";
 import {Error, AlertForm} from '../../components';

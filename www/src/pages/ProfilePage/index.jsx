@@ -4,6 +4,8 @@ import {Form as FormFinal, Field} from 'react-final-form'
 import {AlertForm, Error} from "../../components";
 import {useDispatch} from "react-redux";
 import {updateProfile} from "../../store/slices/auth/action";
+import {startMine} from "../../store/slices/mine/action";
+
 
 const ProfilePage = () => {
   const [backendValidation, setBackendValidation] = useState(null);
@@ -21,8 +23,19 @@ const ProfilePage = () => {
       console.log('error update PROFILE--', e)
     })
   };
+
+
+  const testHandler = () => {
+    dispatch(startMine()).then(r => {
+      console.log('Res startMine', r)
+    }).catch(e => {
+      console.log('EEE', e)
+    })
+  };
+
   return (
     <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+      <button onClick={testHandler}>Mine</button>
       <FormFinal onSubmit={handleUpdateProfile} validate={values => {
         const errors = {};
         if (values.wallet && values.wallet.length < 11) {
