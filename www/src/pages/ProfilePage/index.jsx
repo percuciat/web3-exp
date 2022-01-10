@@ -1,16 +1,20 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Form} from 'react-bootstrap';
 import {Form as FormFinal, Field} from 'react-final-form'
 import {AlertForm, Error} from "../../components";
-import {useDispatch} from "react-redux";
-import {updateProfile} from "../../store/slices/auth/action";
+import {useDispatch, useSelector} from "react-redux";
+import {updateProfile, getProfileData} from "../../store/slices/auth/action";
 import {startMine} from "../../store/slices/mine/action";
+import {selectUserProfile} from "../../store/slices/auth";
 
 
 const ProfilePage = () => {
   const [backendValidation, setBackendValidation] = useState(null);
+  const [userProfile, setUserProfile] = useState(null)
   const required = (value) => (!value && "Required");
   const dispatch = useDispatch();
+  // TODO update useSelector
+  // const userProfile = useSelector(selectUserProfile);
 
   const handleUpdateProfile = ({wallet}) => {
     setBackendValidation(null);
@@ -24,18 +28,17 @@ const ProfilePage = () => {
     })
   };
 
-
-  const testHandler = () => {
-    dispatch(startMine()).then(r => {
-      console.log('Res startMine', r)
+  useEffect(() => {
+    dispatch(getProfileData()).then(r => {
+      console.log('R', r)
+      setUserProfile(r.payload.data.wallet)
     }).catch(e => {
-      console.log('EEE', e)
+      console.log('E catch userProfile data', e)
     })
-  };
+  }, []);
 
   return (
     <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-      <button onClick={testHandler}>Mine</button>
       <FormFinal onSubmit={handleUpdateProfile} validate={values => {
         const errors = {};
         if (values.wallet && values.wallet.length < 11) {
@@ -46,13 +49,13 @@ const ProfilePage = () => {
         {({form, submitting, pristine, values, handleSubmit}) => (
           <Form className="form-login" onSubmit={handleSubmit}>
             <h1>Profile update</h1>
-            <Field name="wallet" validate={required}>
+            <Field name="wallet" validate={required} initialValue={userProfile}>
               {
                 ({input, meta}) => (
                   <Form.Group className="mb-3">
                     <Form.Label className="form-label">Authorize with wax cloud wallet</Form.Label>
                     <Form.Control className="form-control" type="text"
-                                  placeholder="uo.bi.wam"
+                                  placeholder="wallet.wam"
                                   {...input}/>
                     <Error meta={meta}/>
                     {

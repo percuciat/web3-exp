@@ -8,6 +8,7 @@ export const startMine = createAsyncThunk(
       const response = await makeRequest('api/mine', 'get', {}, {authorization: true});
       return response.data
     } catch (e) {
+      // TODO показать ошибку не верификации по почте пользователя
       return rejectWithValue('token Not valid', e.response.data)
     }
   });

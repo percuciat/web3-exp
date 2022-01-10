@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsActiveUser, selectAccountName, selectAccountBalance, setActiveUser} from '../../store/slices/wax'
 import {updateAccountName, updateAccountBalance, makeTransaction} from '../../store/slices/wax/action'
+import {startMine} from "../../store/slices/mine/action";
 
 const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => {
   const dispatch = useDispatch();
@@ -11,7 +12,6 @@ const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => 
 
   useEffect(() => {
     if (activeUser && !isActiveUserWax) {
-      console.log('isActiveUserWax YES--', isActiveUserWax)
       dispatch(updateAccountName(activeUser))
         .then(responseAccName => {
           dispatch(updateAccountBalance(responseAccName.payload))
@@ -31,10 +31,23 @@ const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => 
 
   const transactionHandler = async () => {
     dispatch(makeTransaction(activeUser)).then(r => {
-      console.log('R transactionHandler', r)
       dispatch(updateAccountBalance(accountName))
     }).catch(e => {
       console.log('e', e)
+    })
+  };
+
+  const testHandler = () => {
+    dispatch(startMine()).then(r => {
+      console.log('Res startMine', r)
+      console.log('Res activeUser', activeUser)
+      dispatch(makeTransaction(activeUser)).then(r => {
+        console.log('response transaction', r)
+      }).catch(e => {
+        console.log('error transaction', e)
+      })
+    }).catch(e => {
+      console.log('EEE', e)
     })
   };
 
@@ -50,7 +63,7 @@ const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => 
       )}
       {accountName && (
         <h3 className='ual-subtitle'>
-          Logged in as <span className="account-name"> {accountName}</span>
+          Logged in as <span className="account-name">{accountName}</span>
         </h3>
       )}
       {accountBalance && (
@@ -75,6 +88,7 @@ const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => 
           </div>
         </div>
       )}
+      <button onClick={testHandler}>Mine</button>
     </div>
   )
 };

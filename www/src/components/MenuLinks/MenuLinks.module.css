@@ -2,6 +2,7 @@
 .menu__links{
     color: var(--whiteColor);
     text-decoration: none;
+    cursor: pointer;
 }
 
 .menu__headerLinks{

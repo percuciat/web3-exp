@@ -1,13 +1,22 @@
 import axios from 'axios';
 import { Storage } from '../storage';
+import getPureMinutes from "../common/getPureMinutes";
 
 const apiClient = axios.create({
   baseURL: 'http://api.thelabyrinth.world',
   withCredentials: false,
 });
 
-const makeRequest = (url, method, data = {}, header = {}) => {
+const makeRequest = async (url, method, data = {}, header = {}) => {
+  const tokenDate = Storage.getStorage('tokenDate');
   if (header && header.authorization) {
+    header = {headers: {"Authorization": `Bearer ${Storage.getStorage('token')}`}}
+  }
+  // TODO вынести отдельно ?
+  if (tokenDate && (getPureMinutes() - tokenDate) >= 1) {
+    const response = await apiClient.get('api/auth/refresh', header);
+    Storage.setStorage('token', response.data.token);
+    Storage.setStorage('tokenDate', getPureMinutes());
     header = {headers: {"Authorization": `Bearer ${Storage.getStorage('token')}`}}
   }
   switch (method) {

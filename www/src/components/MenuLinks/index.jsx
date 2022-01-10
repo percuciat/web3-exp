@@ -1,5 +1,5 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import {logoutUser} from "../../store/slices/auth/action";
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsAuth} from "../../store/slices/auth";
@@ -29,12 +29,14 @@ const authMenu = [
 
 const MenuLinks = ({asideLinks, closeMenuAfterLinking}) => {
   const auth = useSelector(selectIsAuth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handlerLogout = () => {
     dispatch(logoutUser());
     // TODO добавить прослушку у роутера
     asideLinks && closeMenuAfterLinking()
   };
+  // navigate('/login', { replace: true })
 
   const menuList = !auth ? unAuthMenu : authMenu;
   return (

@@ -28,10 +28,11 @@ export const updateAccountBalance = createAsyncThunk(
 export const makeTransaction = createAsyncThunk(
   'wax/MAKE_TRANSACTION',
   async (API_activeUser, {getState, dispatch, rejectWithValue}) => {
-    const {mine: transactionData} = getState();
+    const {mine: {transactionData}} = getState();
+    console.log('transactionData--', transactionData)
     const demoTransaction = {
       actions: [{
-        account: 'adentokenwam',
+        account: 'adenmytest11',
         name: 'mine',
         authorization: [{
           actor: '', // use account that was logged in
@@ -40,22 +41,15 @@ export const makeTransaction = createAsyncThunk(
         data: {
           id: transactionData.id,
           nonce: transactionData.nonce,
-          wallet:  transactionData.wallet,
-          /*id: 4,
-          nonce:	"b2aa7cae7b808ec830e73425399483d7e73d282f299977eb69e414095af369a8",*/
-          from: 'percuicatwax',
-          to: 'adenmytest11',
-          quantity: '1.0000 LABA',
-          memo: 'UAL rocks!',
         },
       }],
     };
-    const {wax: account} = getState();
+    const {wax: {account}} = getState();
     demoTransaction.actions[0].authorization[0].actor = account.accountName;
-    demoTransaction.actions[0].data.from = account.accountName;
+    // demoTransaction.actions[0].data.from = account.accountName;
 
     try {
-      console.log('signTransaction--', API_activeUser)
+      console.log('demoTransaction--', demoTransaction)
       const signTransaction = await API_activeUser.signTransaction(demoTransaction, {
         blocksBehind: 3,
         expireSeconds: 30

@@ -16,8 +16,10 @@ export const sendToken = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'auth/AUTH_LOGIN',
-  async (dataForm, { getState, dispatch, rejectWithValue  }) => {
+  async (dataForm, { getState, dispatch, extra, rejectWithValue  }) => {
     const { email, password } = dataForm;
+    console.log('extra-', extra)
+    extra();
     try {
       const response = await makeRequest('api/auth/login', 'post', {
         email,
@@ -63,6 +65,20 @@ export const logoutUser = createAsyncThunk(
   }
 );
 
+
+export const getProfileData = createAsyncThunk(
+  'auth/GET_PROFILE_DATA',
+  async (wallet, {getState,  dispatch, rejectWithValue}) => {
+    try {
+      const response = await makeRequest('api/profile', 'get', {}, {authorization: true});
+      console.log('GET_PROFILE_DATA--', response)
+      return response.data
+    } catch (e) {
+      console.log('e updateProfile', e)
+      return rejectWithValue(e.response.data)
+    }
+  });
+
 export const updateProfile = createAsyncThunk(
   'auth/UPDATE_PROFILE',
   async (wallet, {getState,  dispatch, rejectWithValue}) => {
@@ -75,4 +91,3 @@ export const updateProfile = createAsyncThunk(
       return rejectWithValue(e.response.data)
     }
   });
-
