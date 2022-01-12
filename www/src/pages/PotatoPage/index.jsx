@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
-const PotatoPage  = () => {
+const PotatoPage = () => {
   return (
     <h1>PotatoPage</h1>
   )
-};
+}
 
-export default PotatoPage;
+export default PotatoPage

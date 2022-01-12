@@ -1,8 +1,8 @@
-import React from "react";
-import {Alert} from 'react-bootstrap';
+import React from 'react'
+import { Alert } from 'react-bootstrap'
 
 const Error = (props) => {
-  const { meta } = props;
+  const { meta } = props
   return (
     <>
         {meta.touched && meta.error && (
@@ -12,6 +12,6 @@ const Error = (props) => {
         )}
     </>
   )
-};
+}
 
-export default Error;
+export default Error

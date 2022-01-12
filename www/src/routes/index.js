@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {MainLayout} from "../layouts";
+import React from 'react'
+import { MainLayout } from '../layouts'
 import {
   Empty404,
   LoginPage,
@@ -11,77 +11,75 @@ import {
   PotatoPage,
   GovernmentPage,
   SquarePage
-} from "../pages";
-import {Navigate, useLocation, Outlet} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {selectIsAuth} from '../store/slices/auth';
+} from '../pages'
+import { Navigate, useLocation, Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectIsAuth } from '../store/slices/auth'
 
-
-function RequireAuth() {
-  let location = useLocation();
-  const auth = useSelector(selectIsAuth);
+function RequireAuth () {
+  const location = useLocation()
+  const auth = useSelector(selectIsAuth)
 
   if (!auth) {
-    return <Navigate to="/login" state={{from: location}} replace/>;
+    return <Navigate to="/login" state={{ from: location }} replace/>
   }
 
-  return <Outlet/>;
+  return <Outlet/>
 }
-
 
 const routes = [
   {
     element: <MainLayout/>,
     children: [
       {
-        path: "/",
-        element: <HomePage/>,
+        path: '/',
+        element: <HomePage/>
       },
       {
         element: <RequireAuth/>,
         children: [
           {
-            path: "navigation",
+            path: 'navigation',
             element: <NavigationPage/>,
             children: [
               {
-                path: "labyrinth",
-                element: <LabyrinthPage/>,
+                path: 'labyrinth',
+                element: <LabyrinthPage/>
               },
               {
-                path: "potato",
-                element: <PotatoPage/>,
+                path: 'potato',
+                element: <PotatoPage/>
               },
               {
-                path: "government",
-                element: <GovernmentPage/>,
+                path: 'government',
+                element: <GovernmentPage/>
               },
               {
-                path: "square",
-                element: <SquarePage/>,
+                path: 'square',
+                element: <SquarePage/>
               }
             ]
           },
           {
-            path: "profile",
-            element: <ProfilePage/>,
-          },
+            path: 'profile',
+            element: <ProfilePage/>
+          }
         ]
       },
       {
-        path: "registration",
+        path: 'registration',
         element: <RegisterPage/>
       },
       {
-        path: "login",
+        path: 'login',
         element: <LoginPage/>
       },
       {
-        path: "*",
+        path: '*',
         element: <Empty404/>
       }
-    ],
+    ]
   }
-];
+]
 
-export default routes;
+export default routes

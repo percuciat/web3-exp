@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 import {
   Link,
   Outlet
-} from "react-router-dom";
+} from 'react-router-dom'
 
 const NavigationPage = () => {
   return (<>
@@ -24,6 +24,6 @@ const NavigationPage = () => {
       <Outlet/>
     </>
   )
-};
+}
 
-export default NavigationPage;
+export default NavigationPage

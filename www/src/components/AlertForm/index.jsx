@@ -1,9 +1,9 @@
-import React, {useState} from "react";
-import {Alert} from "react-bootstrap";
+import React, { useState } from 'react'
+import { Alert } from 'react-bootstrap'
 
 const AlertForm = (props) => {
-  const [show, setShow] = useState(true);
-  let {alertMsg, danger = false} = props;
+  const [show, setShow] = useState(true)
+  const { alertMsg, danger = false } = props
 
   // console.log('error ALERT', alertMsg)
 
@@ -13,10 +13,10 @@ const AlertForm = (props) => {
                     onClose={() => setShow(false)}
                     dismissible>
       {
-          <span>{typeof alertMsg === 'string' ? alertMsg: alertMsg.flat()}</span>
+          <span>{typeof alertMsg === 'string' ? alertMsg : alertMsg.flat()}</span>
       }
     </Alert>}
   </>
-};
+}
 
-export default AlertForm;
+export default AlertForm

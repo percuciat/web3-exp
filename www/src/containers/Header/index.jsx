@@ -1,22 +1,22 @@
-import React from "react";
-import {Link} from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
-import Container from "react-bootstrap/Container";
-import {isCorrectMediaScreen} from "../../utils/common/isCorrectMediaScreen";
-import {selectWidthScreen, openMenu} from "../../store/slices/common";
-import MenuLinks from "../../components/MenuLinks";
-import {FaAlignRight} from "react-icons/fa";
-import {TABLET_MEDIA} from "../../consts";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import Container from 'react-bootstrap/Container'
+import { isCorrectMediaScreen } from '../../utils/common/isCorrectMediaScreen'
+import { selectWidthScreen, openMenu } from '../../store/slices/common'
+import MenuLinks from '../../components/MenuLinks'
+import { FaAlignRight } from 'react-icons/fa'
+import { TABLET_MEDIA } from '../../consts'
 import styles from './Header.module.css'
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const widthScreen = useSelector(selectWidthScreen);
+  const dispatch = useDispatch()
+  const widthScreen = useSelector(selectWidthScreen)
 
   const handleOpenMenu = () => {
-    dispatch(openMenu());
-    document.body.style.overflow = 'hidden';
-  };
+    dispatch(openMenu())
+    document.body.style.overflow = 'hidden'
+  }
 
   return (
     <header className={`${styles.header}`}>
@@ -44,6 +44,6 @@ const Header = () => {
       </Container>
     </header>
   )
-};
+}
 
-export default Header;
+export default Header

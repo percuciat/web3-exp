@@ -1,18 +1,18 @@
-import {createSlice} from '@reduxjs/toolkit'
-import {updateAccountName, updateAccountBalance, makeTransaction} from "./action";
+import { createSlice } from '@reduxjs/toolkit'
+import { updateAccountName, updateAccountBalance, makeTransaction } from './action'
 
-const {actions, reducer} = createSlice({
+const { actions, reducer } = createSlice({
   name: 'wax',
   initialState: {
     account: {
       isActiveUser: false,
       accountName: '',
-      accountBalance: null,
+      accountBalance: null
     },
-    isLoading: false,
+    isLoading: false
   },
   reducers: {
-    setActiveUser(state, payload) {
+    setActiveUser (state, payload) {
       console.log('payload--', payload)
       state.account = payload.payload
     }
@@ -20,51 +20,49 @@ const {actions, reducer} = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(updateAccountName.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoading = true
       })
       .addCase(updateAccountName.fulfilled, (state, action) => {
-        state.account.accountName = action.payload;
+        state.account.accountName = action.payload
         state.account.isActiveUser = true
-        state.isLoading = false;
+        state.isLoading = false
       })
       .addCase(updateAccountName.rejected, (state, action) => {
-        state.isLoading = false;
+        state.isLoading = false
         console.log('REJECTED UPDATE USER--', action)
       })
 
       .addCase(updateAccountBalance.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoading = true
       })
       .addCase(updateAccountBalance.fulfilled, (state, action) => {
-        state.account.accountBalance = action.payload;
-        state.isLoading = false;
+        state.account.accountBalance = action.payload
+        state.isLoading = false
       })
       .addCase(updateAccountBalance.rejected, (state, action) => {
         console.log('REJECTED UPDATE BALANCE--', action)
-        state.isLoading = false;
+        state.isLoading = false
       })
 
       .addCase(makeTransaction.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoading = true
       })
       .addCase(makeTransaction.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoading = false
       })
       .addCase(makeTransaction.rejected, (state, action) => {
         console.log('REJECTED UPDATE BALANCE--', action)
-        state.isLoading = false;
+        state.isLoading = false
       })
   }
-});
-
-
+})
 
 export const selectIsActiveUser = (state) => {
   return state.wax.account.isActiveUser
-};
-export const selectAccountName = (state) => state.wax.account.accountName;
-export const selectAccountBalance = (state) => state.wax.account.accountBalance;
+}
+export const selectAccountName = (state) => state.wax.account.accountName
+export const selectAccountBalance = (state) => state.wax.account.accountBalance
 
-export const { setActiveUser } = actions;
+export const { setActiveUser } = actions
 
 export default reducer

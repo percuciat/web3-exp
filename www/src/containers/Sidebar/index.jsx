@@ -1,19 +1,18 @@
-import React from "react";
-import { MenuLinks } from '../../components';
-import { FaTimes } from "react-icons/fa";
-import { closeMenu } from "../../store/slices/common";
+import React from 'react'
+import { MenuLinks } from '../../components'
+import { FaTimes } from 'react-icons/fa'
+import { closeMenu } from '../../store/slices/common'
 import styles from './Sidebar.module.css'
-import {useDispatch} from "react-redux";
+import { useDispatch } from 'react-redux'
 
-
-const Sidebar = ( { toggleSidebar, isDark }) => {
-  const dispatch = useDispatch();
+const Sidebar = (props) => {
+  const dispatch = useDispatch()
   const handleCloseMenu = () => {
-    dispatch(closeMenu());
-    document.body.style.overflow = 'auto';
-  };
+    dispatch(closeMenu())
+    document.body.style.overflow = 'auto'
+  }
   return (
-    <aside className={`${isDark ? 'darkSecondary' : ''} ${styles.sidebar}`}>
+    <aside className={styles.sidebar}>
       <nav className={styles.sidebar__container}>
         <MenuLinks asideLinks={true} closeMenuAfterLinking={handleCloseMenu}/>
       </nav>
@@ -23,6 +22,6 @@ const Sidebar = ( { toggleSidebar, isDark }) => {
       </button>
     </aside>
   )
-};
+}
 
 export default Sidebar

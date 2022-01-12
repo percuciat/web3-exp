@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
-const GovernmentPage  = () => {
+const GovernmentPage = () => {
   return (
     <h1>GovernmentPage</h1>
   )
-};
+}
 
-export default GovernmentPage;
+export default GovernmentPage

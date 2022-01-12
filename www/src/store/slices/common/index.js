@@ -1,6 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-const {actions, reducer} = createSlice({
+const { actions, reducer } = createSlice({
   name: 'common',
   initialState: {
     isRu: true,
@@ -9,20 +9,20 @@ const {actions, reducer} = createSlice({
     widthScreen: null
   },
   reducers: {
-    setWindowSize(state, action) {
+    setWindowSize (state, action) {
       state.widthScreen = action.payload
     },
-    openMenu(state) {
+    openMenu (state) {
       state.isMenuOpen = true
     },
-    closeMenu(state) {
+    closeMenu (state) {
       state.isMenuOpen = false
     }
-  },
-});
+  }
+})
 
-export const selectIsMenuOpen = (state) => state.common.isMenuOpen;
-export const selectWidthScreen = (state) => state.common.widthScreen;
-export const { setWindowSize, openMenu, closeMenu } = actions;
+export const selectIsMenuOpen = (state) => state.common.isMenuOpen
+export const selectWidthScreen = (state) => state.common.widthScreen
+export const { setWindowSize, openMenu, closeMenu } = actions
 
 export default reducer

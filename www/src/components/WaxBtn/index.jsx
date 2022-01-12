@@ -1,14 +1,14 @@
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {selectIsActiveUser, selectAccountName, selectAccountBalance, setActiveUser} from '../../store/slices/wax'
-import {updateAccountName, updateAccountBalance, makeTransaction} from '../../store/slices/wax/action'
-import {startMine} from "../../store/slices/mine/action";
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectIsActiveUser, selectAccountName, selectAccountBalance, setActiveUser } from '../../store/slices/wax'
+import { updateAccountName, updateAccountBalance, makeTransaction } from '../../store/slices/wax/action'
+import { startMine } from '../../store/slices/mine/action'
 
-const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => {
-  const dispatch = useDispatch();
-  const isActiveUserWax = useSelector(selectIsActiveUser);
-  const accountName = useSelector(selectAccountName);
-  const accountBalance = useSelector(selectAccountBalance);
+const WaxBtn = ({ ual: { activeUser, activeAuthenticator, logout, showModal } }) => {
+  const dispatch = useDispatch()
+  const isActiveUserWax = useSelector(selectIsActiveUser)
+  const accountName = useSelector(selectAccountName)
+  const accountBalance = useSelector(selectAccountBalance)
 
   useEffect(() => {
     if (activeUser && !isActiveUserWax) {
@@ -26,8 +26,8 @@ const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => 
         accountName: '',
         accountBalance: null,
       }));
-    }*/
-  }, []);
+    } */
+  }, [])
 
   const transactionHandler = async () => {
     dispatch(makeTransaction(activeUser)).then(r => {
@@ -35,7 +35,7 @@ const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => 
     }).catch(e => {
       console.log('e', e)
     })
-  };
+  }
 
   const testHandler = () => {
     dispatch(startMine()).then(r => {
@@ -49,7 +49,7 @@ const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => 
     }).catch(e => {
       console.log('EEE', e)
     })
-  };
+  }
 
   return (
     <div className="account-wrapper">
@@ -91,6 +91,6 @@ const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => 
       <button onClick={testHandler}>Mine</button>
     </div>
   )
-};
+}
 
-export default WaxBtn;
+export default WaxBtn
