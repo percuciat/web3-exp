@@ -16,14 +16,23 @@ export const loginUser = createAsyncThunk("auth/AUTH_LOGIN", async (dataForm, {
   getState, dispatch, extra, rejectWithValue
 }) => {
     const {email, password} = dataForm;
-    console.log("extra-", extra)
-    extra();
+
+   /*
+    *  Console.log("extra-", extra)
+    *  extra(); 
+    */
     try {
-      const responseCrf = await makeRequest("api/sanctum/csrf-cookie", "get");
+
+      /* const responseCrf = await makeRequest("get", {url: "api/sanctum/csrf-cookie"});
       console.log("responseCrf", responseCrf);
       const response = await makeRequest("post", {url: "api/auth/login", data: {email,
-        password}, headers: {"X-CSRF-TOKEN": responseCrf}});
-      return response.data.token
+      password}, headers: {"X-CSRF-TOKEN": responseCrf}});
+      return response.data.token 
+      */
+      const response = await makeRequest("post", {url: "api/auth/login", data: {email, password}});
+
+       return response.data.token  
+      
     } catch (e) {
       console.log("ERROR sending token--", e);
       return rejectWithValue(e.response.data)

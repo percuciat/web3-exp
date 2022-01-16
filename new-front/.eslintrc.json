@@ -30,7 +30,17 @@
         "multiline-ternary":"off",
         "no-trailing-spaces":"off",
         "max-lines-per-function": "off",
-        "func-style":"off"
+        "func-style":"off",
+        "complexity":"off",
+        "no-negated-condition":"off",
+        "max-lines": "off",
+        "object-curly-spacing": "off",
+        "arrow-parens": "off",
+        "no-multi-spaces":"off",
+        "dot-location": "off",
+        "no-extra-parens": "off",
+        "multiline-comment-style":"off",
+        "capitalized-comments":"off"
     },
     "parserOptions": {
         "ecmaFeatures": {

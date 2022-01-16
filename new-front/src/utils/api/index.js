@@ -12,24 +12,28 @@ apiClient.interceptors.request.use((request) => {
   const tokenDate = Storage.getStorage("tokenDate")
   const isApiUrl = request.url.startsWith("http://api.thelabyrinth.world");
   const minutes = 50;
+  console.log("token--", token);
   if (token && isApiUrl) {
     request.headers.common.Authorization = `Bearer ${token}`;
-    if (getPureMinutes() - tokenDate >= minutes) {
-      const responseRefresh = apiClient.get("api/auth/refresh", {
-        headers: {"Authorization": `Bearer ${token}`}
-      })
-      Storage.setStorage("token", responseRefresh.data.token)
-      Storage.setStorage("tokenDate", getPureMinutes())
-      request.headers.common.Authorization = `Bearer ${token}`;
-    }
+
+    /*
+     * If ((getPureMinutes() - tokenDate) >= minutes) {
+     * console.log("refr");
+     * const responseRefresh = apiClient.get("api/auth/refresh", {
+     *  headers: {"Authorization": `Bearer ${token}`}
+     * })
+     * Storage.setStorage("token", responseRefresh.data.token)
+     * Storage.setStorage("tokenDate", getPureMinutes())
+     * request.headers.common.Authorization = `Bearer ${token}`;
+     * } 
+     */
   }
   return request
 })
 
 export const makeRequest = (method, args) => {
   const {url, headers, data} = args
-
-  return apiClient.request(method, {url, headers, data}).
+  return apiClient.request({url, method, headers, data}).
     then((res) => {
       if (res.data.error) {
         throw new Error(res.data.error)

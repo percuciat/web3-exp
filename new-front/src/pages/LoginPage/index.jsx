@@ -19,7 +19,9 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const auth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
-
+  if (auth) {
+    return <Navigate to="/" replace={true}/>
+  }
   const handleLogin = ({email, password}) => {
     setBackendValidation(null)
     dispatch(loginUser({
@@ -35,16 +37,6 @@ const LoginPage = () => {
     })
   };
 
-
-  useLayoutEffect(() => {
-    if (auth) {
-      navigate("/", {replace: true})
-    }
-  }, [auth]);
-
-  if (auth) {
-    return <Navigate to="/" replace={true}/>
-  }
 
   return (
     <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">
