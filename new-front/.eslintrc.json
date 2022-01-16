@@ -1,0 +1,44 @@
+{
+    "extends": "eslint:all",
+    "env" : {
+        "browser" : true,
+        "es2020" : true
+    },
+    "rules" : {
+        "no-unused-vars" : 0,
+        "no-undef" : 0,
+        "max-statements": "off",
+        "linebreak-style": "off",
+        "quote-props":"off",
+        "sort-keys":"off",
+        "indent": "off",
+        "padded-blocks":"off",
+        "one-var": "off",
+        "max-len": ["warn", { "code": 100, "tabWidth": 2 }],
+        "function-call-argument-newline": ["error", "never"],
+        "semi": "off",
+        "array-element-newline": "off",
+        "object-property-newline":"off",
+        "newline-per-chained-call": "off",
+        "id-length": "off",
+        "no-console":"off",
+        "sort-imports":"off",
+        "func-names": "off",
+        "camelcase":"off",
+        "no-warning-comments":"off",
+        "no-ternary":"off",
+        "multiline-ternary":"off",
+        "no-trailing-spaces":"off",
+        "max-lines-per-function": "off",
+        "func-style":"off"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true,
+            "spread" : true,
+            "restParams" : true
+        },
+        "sourceType": "module"
+    }
+}
