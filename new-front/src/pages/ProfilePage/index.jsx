@@ -23,6 +23,7 @@ const ProfilePage = () => {
     setBackendValidation(null);
     dispatch(updateProfile(wallet)).then((r) => {
       // TODO for async operation - need fix
+      console.log("respone update profile", r);
       if (r.payload) {
         setBackendValidation(r.payload)
       }
@@ -33,8 +34,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     dispatch(getProfileData()).then((r) => {
-      console.log("R", r)
-      setUserProfile(r.payload.data.wallet)
+      setUserProfile(r.payload.wallet)
     }).catch((e) => {
       console.log("E catch userProfile data", e)
     })

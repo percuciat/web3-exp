@@ -5,7 +5,7 @@
         "es2020" : true
     },
     "rules" : {
-        "no-unused-vars" : 0,
+        "no-unused-vars" : "warn",
         "no-undef" : 0,
         "max-statements": "off",
         "linebreak-style": "off",
@@ -40,7 +40,8 @@
         "dot-location": "off",
         "no-extra-parens": "off",
         "multiline-comment-style":"off",
-        "capitalized-comments":"off"
+        "capitalized-comments":"off",
+        "no-use-before-define": "off"
     },
     "parserOptions": {
         "ecmaFeatures": {
