@@ -10,7 +10,6 @@ import {Form as FormFinal, Field} from "react-final-form";
 
 const RegisterPage = () => {
   const [backendValidation, setBackendValidation] = useState(null);
-  const navigate = useNavigate();
   const auth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
   const required = (value) => !value && "Required";
@@ -29,14 +28,7 @@ const RegisterPage = () => {
     }).catch((e) => {
       console.log("err login", e)
     })
-
   };
-
-  useLayoutEffect(() => {
-    if (auth) {
-      navigate("/", {replace: true})
-    }
-  }, [auth]);
 
   if (auth) {
     return <Navigate to="/" replace={true}/>

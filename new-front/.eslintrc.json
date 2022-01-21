@@ -41,7 +41,13 @@
         "no-extra-parens": "off",
         "multiline-comment-style":"off",
         "capitalized-comments":"off",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+         "no-magic-numbers": "off",
+         "function-call-argument-newline": "off",
+         "function-paren-newline": "off",
+         "object-curly-newline":"off",
+         "no-inline-comments": "off",
+         "arrow-body-style": "off"
     },
     "parserOptions": {
         "ecmaFeatures": {

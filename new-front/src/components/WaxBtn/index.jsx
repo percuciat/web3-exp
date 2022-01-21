@@ -1,34 +1,39 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectIsActiveUser, 
-  selectAccountName, selectAccountBalance, setActiveUser} from "../../store/slices/wax"
-import {updateAccountName, 
+  selectAccountWallet, selectAccountBalance, setActiveUser} from "../../store/slices/wax"
+import {
   updateAccountBalance, 
   makeTransaction} from "../../store/slices/wax/action"
 import {startMine} from "../../store/slices/mine/action";
+import {updateUser} from "../../store/slices/wax/";
 
 const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => {
   const dispatch = useDispatch();
   const isActiveUserWax = useSelector(selectIsActiveUser);
-  const accountName = useSelector(selectAccountName);
+  const accountWallet = useSelector(selectAccountWallet);
   const accountBalance = useSelector(selectAccountBalance);
 
   useEffect(() => {
+    console.log("activeUser--", activeUser);
     if (activeUser && !isActiveUserWax) {
-      dispatch(updateAccountName(activeUser)).
+
+     /*  dispatch(updateUser(activeUser)).
         then((responseAccName) => {
           dispatch(updateAccountBalance(responseAccName.payload))
         }).
         catch((e) => {
           console.log("ERROR, USE effect update", e)
-        })
+        }) */
+        dispatch(updateUser(activeUser))
+        dispatch(updateAccountBalance(activeUser.accountName));
     }
   }, []);
 
   const transactionHandler = async () => {
     try {
       await dispatch(makeTransaction(activeUser));
-      await dispatch(updateAccountBalance(accountName));
+      await dispatch(updateAccountBalance(accountWallet));
     } catch (err) {
       console.log("err", err)
     }
@@ -37,7 +42,6 @@ const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => 
   const testHandler = () => {
     dispatch(startMine()).then((r) => {
       console.log("Res startMine", r)
-      console.log("Res activeUser", activeUser)
       dispatch(makeTransaction(activeUser)).then((res) => {
         console.log("response transaction", res)
       }).catch((e) => {
@@ -55,12 +59,12 @@ const WaxBtn = ({ual: {activeUser, activeAuthenticator, logout, showModal}}) => 
         <span
           role="button"
           onClick={showModal}
-          className="ual-generic-button">Show UAL Modal укytuytuytцкцукцу</span>
+          className="ual-generic-button">Show UAL Modal</span>
         </button>
       }
-      {accountName && 
+      {accountWallet && 
         <h3 className="ual-subtitle">
-          Logged in as <span className="account-name">{accountName}</span>
+          Logged in as <span className="account-name">{accountWallet}</span>
         </h3>
       }
       {accountBalance && 

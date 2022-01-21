@@ -1,14 +1,14 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice} from "@reduxjs/toolkit"
 import {startMine} from "./action";
 
 const {actions, reducer} = createSlice({
-  name: 'mine',
+  name: "mine",
   initialState: {
     isVerify: false,
     transactionData: {}
   },
   reducers: {
-    verifyUser(state) {
+    verifyUser (state) {
       state.isVerify = true
     }
   },
@@ -25,7 +25,7 @@ const {actions, reducer} = createSlice({
 
       .addCase(startMine.rejected, (state, action) => {
         state.isLoading = false;
-        console.log('START MINE REJECTED')
+        console.log("START MINE REJECTED")
       })
   }
 });

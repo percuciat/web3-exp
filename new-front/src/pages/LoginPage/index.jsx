@@ -1,9 +1,9 @@
-import React, {useLayoutEffect, useState} from "react";
+import React, {useState} from "react";
 import {Form} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux"
 import {loginUser} from "../../store/slices/auth/action"
 import {selectIsAuth} from "../../store/slices/auth";
-import {useNavigate, Navigate} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {Error, AlertForm} from "../../components";
 import {Form as FormFinal, Field} from "react-final-form"
 
@@ -16,7 +16,6 @@ import {Form as FormFinal, Field} from "react-final-form"
 const LoginPage = () => {
   const [backendValidation, setBackendValidation] = useState(null);
   const required = (value) => !value && "Required";
-  const navigate = useNavigate();
   const auth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
   if (auth) {

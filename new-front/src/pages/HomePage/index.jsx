@@ -50,9 +50,9 @@ const HomePage = () => {
   return <>
       <h1>Home</h1>
       <div>GET PARAMS: {codeParam}</div>
-     {/*  <UALProvider chains={[wax]} authenticators={[wax, anchor]} appName={"My App"}>
+      <UALProvider chains={[wax]} authenticators={[wax, anchor]} appName={"My App"}>
         <MyUALConsumer />
-      </UALProvider> */}
+      </UALProvider> 
     </>
 
 };
