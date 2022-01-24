@@ -26,9 +26,13 @@ apiClient.interceptors.request.use(
       } 
      */
     }
+    console.log('request', request);
     return request;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    console.log('error Axios', error);
+    return Promise.reject(error);
+  }
 );
 
 export const makeRequest = (method, args) => {

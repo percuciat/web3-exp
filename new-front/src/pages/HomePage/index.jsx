@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectToken } from '../../store/slices/auth';
-
 import { makeRequest } from '../../utils/api';
 import { Anchor } from 'ual-anchor';
 import { Wax } from '@eosdacio/ual-wax';

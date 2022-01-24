@@ -14,7 +14,7 @@ const { actions, reducer } = createSlice({
   },
   reducers: {
     setActiveUser(state, action) {
-      state.account = payload.payload;
+      state.account = action.payload;
     },
     updateUser(state, payload) {
       state.account.isActiveUser = true;

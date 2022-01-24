@@ -6,6 +6,7 @@ import { selectIsAuth } from '../../store/slices/auth';
 import { Navigate } from 'react-router-dom';
 import { Error, AlertForm } from '../../components';
 import { Form as FormFinal, Field } from 'react-final-form';
+import { LoginForm } from '../../containers';
 
 /*
  *  Test@test.ru
@@ -13,8 +14,11 @@ import { Form as FormFinal, Field } from 'react-final-form';
  */
 
 const LoginPage = () => {
+  return <LoginForm />;
+  /*  const [active, setActive] = useState(true);
   const [backendValidation, setBackendValidation] = useState(null);
   const required = (value) => !value && 'Required';
+
   const auth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
   if (auth) {
@@ -44,7 +48,10 @@ const LoginPage = () => {
       <FormFinal onSubmit={handleLogin}>
         {({ form, submitting, pristine, values, handleSubmit }) => (
           <Form className="form-login" onSubmit={handleSubmit}>
-            <h1>Login</h1>
+            <div className="wrapperTitle">
+              <h1>Login</h1>
+              <h1>Registration</h1>
+            </div>
             <Field name="email" validate={required}>
               {({ input, meta }) => (
                 <Form.Group>
@@ -76,7 +83,7 @@ const LoginPage = () => {
         )}
       </FormFinal>
     </div>
-  );
+  ); */
 };
 
 export default LoginPage;

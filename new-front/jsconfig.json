@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "module": "commonjs",
+    "target": "ES2021",
+    "baseUrl": "src"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["./node_modules", "**/node_modules/*"]
+}
