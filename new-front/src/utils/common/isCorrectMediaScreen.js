@@ -1,4 +1,4 @@
-import { DESKTOP_MEDIA, TABLET_MEDIA, TABLET_MINI_MEDIA, MOBILE_MEDIA } from "../../consts"
+import { DESKTOP_MEDIA, TABLET_MEDIA, TABLET_MINI_MEDIA, MOBILE_MEDIA } from '../../consts';
 
 export function isCorrectMediaScreen(width, parameterMedia) {
   switch (parameterMedia) {

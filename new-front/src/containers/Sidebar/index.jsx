@@ -1,28 +1,26 @@
-import React from "react";
-import {MenuLinks} from "../../components";
-import {FaTimes} from "react-icons/fa";
-import {closeMenu} from "../../store/slices/common";
-import styles from "./Sidebar.module.css"
-import {useDispatch} from "react-redux";
+import React from 'react';
+import { MenuLinks } from '../../components';
+import { FaTimes } from 'react-icons/fa';
+import { closeMenu } from '../../store/slices/common';
+import styles from './Sidebar.module.css';
+import { useDispatch } from 'react-redux';
 
-
-const Sidebar = ({toggleSidebar, isDark}) => {
+const Sidebar = ({ toggleSidebar, isDark }) => {
   const dispatch = useDispatch();
   const handleCloseMenu = () => {
     dispatch(closeMenu());
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = 'auto';
   };
   return (
-    <aside className={`${isDark ? "darkSecondary" : ""} ${styles.sidebar}`}>
+    <aside className={`${isDark ? 'darkSecondary' : ''} ${styles.sidebar}`}>
       <nav className={styles.sidebar__container}>
-        <MenuLinks asideLinks={true} closeMenuAfterLinking={handleCloseMenu}/>
+        <MenuLinks asideLinks={true} closeMenuAfterLinking={handleCloseMenu} />
       </nav>
-      <button className={styles.close__btn} onClick={handleCloseMenu}
-              title="Close menu">
+      <button className={styles.close__btn} onClick={handleCloseMenu} title="Close menu">
         <FaTimes />
       </button>
     </aside>
-  )
+  );
 };
 
-export default Sidebar
+export default Sidebar;

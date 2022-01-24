@@ -1,28 +1,35 @@
-import {createSlice} from "@reduxjs/toolkit"
-import {loginUser, registerUser, sendToken, getProfileData, logoutUser, updateProfile} from "./action"
-import {Storage} from "../../../utils/storage"
-import getPureMinutes from "../../../utils/common/getPureMinutes"
+import { createSlice } from '@reduxjs/toolkit';
+import {
+  loginUser,
+  registerUser,
+  sendToken,
+  getProfileData,
+  logoutUser,
+  updateProfile,
+} from './action';
+import { Storage } from '../../../utils/storage';
+import getPureMinutes from '../../../utils/common/getPureMinutes';
 
-const {actions, reducer} = createSlice({
-  name: "auth",
+const { actions, reducer } = createSlice({
+  name: 'auth',
   initialState: {
-    isAuth: Boolean(Storage.getStorage("token")),
+    isAuth: Boolean(Storage.getStorage('token')),
     isLoading: false,
-    token: Storage.getStorage("token"),
+    token: Storage.getStorage('token'),
     userData: null,
     errorsObj: null,
-    userProfile: null
+    userProfile: null,
   },
   reducers: {
-    countTokenLife (state) {
-      state.isVerify = true
-    }
+    countTokenLife(state) {
+      state.isVerify = true;
+    },
   },
   extraReducers: (builder) => {
-    function authUser (state, action) {
+    function authUser(state, action) {
       state.isAuth = true;
-      Storage.setStorage("token", action.payload);
-      Storage.setStorage("tokenDate", getPureMinutes());
+      Storage.setStorage('token', action.payload);
+      Storage.setStorage('tokenDate', getPureMinutes());
       state.tokenDate = getPureMinutes();
       state.token = action.payload;
       state.isLoading = false;
@@ -60,8 +67,8 @@ const {actions, reducer} = createSlice({
         state.isAuth = false;
         state.userData = null;
         state.token = null;
-        Storage.removeStorage("token");
-        Storage.removeStorage("tokenDate");
+        Storage.removeStorage('token');
+        Storage.removeStorage('tokenDate');
       })
 
       .addCase(updateProfile.fulfilled, (state, action) => {
@@ -69,7 +76,7 @@ const {actions, reducer} = createSlice({
       })
 
       .addCase(updateProfile.rejected, (state, action) => {
-        console.log("error update profile", action.payload)
+        console.log('error update profile', action.payload);
       })
 
       .addCase(getProfileData.pending, (state, action) => {
@@ -83,13 +90,10 @@ const {actions, reducer} = createSlice({
 
       .addCase(getProfileData.rejected, (state, action) => {
         state.isLoading = false;
-      })
-
-    
-  }
+      });
+  },
 });
-export const {verifyUser} = actions;
-
+export const { verifyUser } = actions;
 
 export const selectIsAuth = (state) => state.auth.isAuth;
 export const selectUserProfile = (state) => state.auth.userProfile;
@@ -100,4 +104,4 @@ export const selectToken = (state) => state.auth.token;
 
 /* export const selectIsLoading = (state) => state.auth.isLoading;*/
 
-export default reducer
+export default reducer;

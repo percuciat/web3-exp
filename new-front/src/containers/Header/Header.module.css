@@ -1,35 +1,34 @@
 header.header {
-    padding: 1rem 0;
-    box-shadow: var(--light-shadow);
-    background-color: rgb(204 204 204 / 20%);
-    /*background: var(--whiteColor);*/
+  padding: 1rem 0;
+  box-shadow: var(--light-shadow);
+  background-color: rgb(204 204 204 / 20%);
+  /*background: var(--whiteColor);*/
 }
 
 .header__wrapper {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .logo__link {
-    font-family: var(--ff-third), cursive;
-    font-size: 22px;
-    padding: 0;
-    text-decoration: none;
-    color: var(--whiteColor);
+  font-family: var(--ff-third), cursive;
+  font-size: 22px;
+  padding: 0;
+  text-decoration: none;
+  color: var(--whiteColor);
 }
 
-
 .toggleBtn {
-    order: 3;
-    font-size: 2rem;
-    line-height: 1rem;
-    background: transparent;
-    border-color: transparent;
-    color: var(--attentionColor);
-    cursor: pointer;
-    transition: var(--transition);
+  order: 3;
+  font-size: 2rem;
+  line-height: 1rem;
+  background: transparent;
+  border-color: transparent;
+  color: var(--attentionColor);
+  cursor: pointer;
+  transition: var(--transition);
 }
 
 .toggleBtn:hover {
-    color: var(--attentionColor);
+  color: var(--attentionColor);
 }
