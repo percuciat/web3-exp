@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import styles from './LoginForm.module.css';
 import { Form } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { registerUser, loginUser, sendToken } from '../../store/slices/auth/action';
-import { selectIsAuth } from '../../store/slices/auth';
+import { useDispatch } from 'react-redux';
+import { registerUser, loginUser } from '../../store/slices/auth/action';
 import { Error, AlertForm } from '../../components';
 import { Form as FormFinal, Field } from 'react-final-form';
+import styles from './LoginForm.module.css';
 
 const LoginForm = () => {
   const [active, setActive] = useState({
     name: 'login',
   });
   const [backendValidation, setBackendValidation] = useState(null);
-
+  const dispatch = useDispatch();
   const required = (value) => !value && 'Required';
   const validationMatchPassword = (values) => {
     const errors = {};
@@ -21,9 +20,6 @@ const LoginForm = () => {
     }
     return errors;
   };
-
-  const auth = useSelector(selectIsAuth);
-  const dispatch = useDispatch();
 
   const handleAuthorize = (values) => {
     setBackendValidation(null);
@@ -55,63 +51,65 @@ const LoginForm = () => {
   };
 
   return (
-    <FormFinal
-      onSubmit={handleAuthorize}
-      validate={active.name !== 'login' ? validationMatchPassword : ''}
-    >
-      {({ form, submitting, pristine, values, handleSubmit }) => (
-        <Form className="form-login" onSubmit={handleSubmit}>
-          <div className={styles.wrapperTitle}>
-            <button onClick={() => setActive({ name: 'login' })}>Login</button>
-            <button onClick={() => setActive({ name: 'registration' })}>Registration</button>
-          </div>
-          <Field name="email" validate={required}>
-            {({ input, meta }) => (
-              <Form.Group>
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="name@example.com" {...input} />
-                <Error meta={meta} />
-                {backendValidation?.errors && (
-                  <AlertForm danger={true} alertMsg={backendValidation.errors.email} />
-                )}
-              </Form.Group>
-            )}
-          </Field>
-          <Field name="password" validate={required}>
-            {({ input, meta }) => (
-              <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="password" {...input} />
-                <Error meta={meta} />
-                {backendValidation?.errors && (
-                  <AlertForm danger={true} alertMsg={backendValidation.errors.password} />
-                )}
-              </Form.Group>
-            )}
-          </Field>
-          {active.name !== 'login' ? (
-            <Field name="password_confirmation" validate={required}>
+    <>
+      <div className={styles.wrapperTitle}>
+        <button onClick={() => setActive({ name: 'login' })}>Login</button>
+        <button onClick={() => setActive({ name: 'registration' })}>Registration</button>
+      </div>
+      <FormFinal
+        onSubmit={handleAuthorize}
+        validate={active.name !== 'login' ? validationMatchPassword : ''}
+      >
+        {({ form, submitting, pristine, values, handleSubmit }) => (
+          <Form className="form-login" onSubmit={handleSubmit}>
+            <Field name="email" validate={required}>
               {({ input, meta }) => (
                 <Form.Group>
-                  <Form.Label>Confirm password</Form.Label>
-                  <Form.Control type="password" placeholder="confirm password" {...input} />
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control type="email" placeholder="name@example.com" {...input} />
                   <Error meta={meta} />
                   {backendValidation?.errors && (
-                    <AlertForm
-                      danger={true}
-                      alertMsg={backendValidation.errors.password_confirmation}
-                    />
+                    <AlertForm danger={true} alertMsg={backendValidation.errors.email} />
                   )}
                 </Form.Group>
               )}
             </Field>
-          ) : null}
-          <button type="submit" className="btn btn-primary" disabled={submitting || pristine}>
-            Sign in
-          </button>
-        </Form>
-      )}
-    </FormFinal>
+            <Field name="password" validate={required}>
+              {({ input, meta }) => (
+                <Form.Group>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" placeholder="password" {...input} />
+                  <Error meta={meta} />
+                  {backendValidation?.errors && (
+                    <AlertForm danger={true} alertMsg={backendValidation.errors.password} />
+                  )}
+                </Form.Group>
+              )}
+            </Field>
+            {active.name !== 'login' ? (
+              <Field name="password_confirmation" validate={required}>
+                {({ input, meta }) => (
+                  <Form.Group>
+                    <Form.Label>Confirm password</Form.Label>
+                    <Form.Control type="password" placeholder="confirm password" {...input} />
+                    <Error meta={meta} />
+                    {backendValidation?.errors && (
+                      <AlertForm
+                        danger={true}
+                        alertMsg={backendValidation.errors.password_confirmation}
+                      />
+                    )}
+                  </Form.Group>
+                )}
+              </Field>
+            ) : null}
+            <button type="submit" className="btn btn-primary" disabled={submitting || pristine}>
+              Sign in
+            </button>
+          </Form>
+        )}
+      </FormFinal>
+    </>
   );
 };
 

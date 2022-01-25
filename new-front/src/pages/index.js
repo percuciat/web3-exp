@@ -1,3 +1,6 @@
+import RoadPage from './RoadPage';
+import AboutPage from './AboutPage';
+import FaqPage from './FaqPage';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import ProfilePage from './ProfilePage';
@@ -11,6 +14,9 @@ import LocationPage from './LocationPage';
 import Empty404 from './Empty404';
 
 export {
+  AboutPage,
+  FaqPage,
+  RoadPage,
   HomePage,
   LoginPage,
   ProfilePage,

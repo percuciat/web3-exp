@@ -3,6 +3,9 @@ import { MainLayout } from '../layouts';
 import {
   Empty404,
   LoginPage,
+  AboutPage,
+  FaqPage,
+  RoadPage,
   HomePage,
   ProfilePage,
   RegisterPage,
@@ -66,13 +69,25 @@ const routes = [
           },
         ],
       },
-      {
+      /* {
         path: 'registration',
         element: <RegisterPage />,
-      },
+      }, */
       {
         path: 'login',
         element: <LoginPage />,
+      },
+      {
+        path: 'about',
+        element: <AboutPage />,
+      },
+      {
+        path: 'road',
+        element: <RoadPage />,
+      },
+      {
+        path: 'faq',
+        element: <FaqPage />,
       },
       {
         path: '*',

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Reggae+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sen&display=swap');
 
 /*
 ===============
@@ -28,7 +29,7 @@ Variables
   --clr-red-dark: hsl(360, 67%, 44%);
   --clr-red-light: hsl(360, 71%, 66%);
   --ff-primary: 'Roboto', sans-serif;
-  --ff-secondary: 'Open Sans', sans-serif;
+  --ff-secondary: 'Sen', sans-serif;
   --ff-third: 'Reggae One', sans-serif;
   --transition: all 0.3s linear;
   --spacing: 0.2rem;

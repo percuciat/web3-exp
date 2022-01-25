@@ -11,9 +11,21 @@ const unAuthMenu = [
     link: 'login',
   },
   {
+    name: 'About',
+    link: 'about',
+  },
+  {
+    name: 'Road map',
+    link: 'road',
+  },
+  {
+    name: 'Faq',
+    link: 'faq',
+  },
+  /*  {
     name: 'Registration',
     link: 'registration',
-  },
+  }, */
 ];
 
 const authMenu = [
@@ -33,6 +45,7 @@ const MenuLinks = ({ asideLinks, closeMenuAfterLinking }) => {
   const dispatch = useDispatch();
   const handlerLogout = () => {
     dispatch(logoutUser());
+    closeMenuAfterLinking();
 
     /*
      *  TODO добавить прослушку у роутера

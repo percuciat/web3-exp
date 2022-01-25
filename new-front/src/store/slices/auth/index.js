@@ -102,6 +102,6 @@ export const selectUserData = (state) => state.auth.userData;
 /* export const selectErrorsObj = (state) => state.auth.errorsObj;*/
 export const selectToken = (state) => state.auth.token;
 
-/* export const selectIsLoading = (state) => state.auth.isLoading;*/
+export const selectIsLoading = (state) => state.auth.isLoading;
 
 export default reducer;

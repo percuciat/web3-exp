@@ -13,25 +13,50 @@ apiClient.interceptors.request.use(
     const tokenDate = Storage.getStorage('tokenDate');
     if (token) {
       request.headers = { Authorization: `Bearer ${token}` };
-
-      /*
-      If ((getPureMinutes() - tokenDate) >= minutes) {
-      console.log("refr");
-      const responseRefresh = apiClient.get("api/auth/refresh", {
-        headers: {"Authorization": `Bearer ${token}`}
-      })
-      Storage.setStorage("token", responseRefresh.data.token)
-      Storage.setStorage("tokenDate", getPureMinutes())
-      request.headers.common.Authorization = `Bearer ${token}`;
-      } 
-     */
     }
-    console.log('request', request);
+    console.log('AXIOS interceptor request:', request);
     return request;
   },
   (error) => {
-    console.log('error Axios', error);
+    console.log('error AXIOS interceptor request:', error);
+    /*  console.log('error Axios', error);
+    const token = Storage.getStorage('token');
+    const tokenDate = Storage.getStorage('tokenDate');
+    if (error.status === '403') {
+      const responseRefresh = apiClient.get('api/auth/refresh', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      Storage.setStorage('token', responseRefresh.data.token);
+      Storage.setStorage('tokenDate', getPureMinutes());
+      request.headers.common.Authorization = `Bearer ${token}`;
+    } */
+
     return Promise.reject(error);
+  }
+);
+let f = false;
+
+apiClient.interceptors.response.use(
+  (response) => {
+    console.log('AXIOS interceptor response:', response);
+    return response;
+  },
+  async function (error) {
+    console.log('error AXIOS interceptor response:', error.response);
+    /*  const originalRequest = error.config;
+    if (error.response.status === 403 && !f) {
+      const token = Storage.getStorage('token');
+      f = true;
+      const responseRefresh = await apiClient.get('api/auth/refresh', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      Storage.setStorage('token', responseRefresh.data.token);
+      Storage.setStorage('tokenDate', getPureMinutes());
+      const access_token = await refreshAccessToken();
+      apiClient.headers.common.Authorization = `Bearer ${token}`;
+      return apiClient(originalRequest);
+    } */
+    return Promise.reject(error.response);
   }
 );
 
@@ -43,11 +68,9 @@ export const makeRequest = (method, args) => {
       if (res.data.error) {
         throw new Error(res.data.error);
       }
-      console.log(`REQUEST to ${url}`, res.data);
       return res.data;
     })
     .catch((e) => {
-      console.log('Error AXIOS', e);
-      throw e.message;
+      throw e.data;
     });
 };

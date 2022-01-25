@@ -1,15 +1,8 @@
-.spinWrapper {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background: #080705;
-}
-
 .spinner {
   position: absolute;
-  height: 60px;
-  width: 60px;
-  border: 3px solid transparent;
+  height: 90px;
+  width: 90px;
+  border: 5px solid transparent;
   border-top-color: #a04668;
   top: 50%;
   left: 50%;
@@ -22,7 +15,7 @@
 .spinner:after {
   content: '';
   position: absolute;
-  border: 3px solid transparent;
+  border: 5px solid transparent;
   border-radius: 50%;
 }
 
