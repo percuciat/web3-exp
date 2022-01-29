@@ -52,63 +52,77 @@ const LoginForm = () => {
 
   return (
     <>
-      <div className={styles.wrapperTitle}>
-        <button onClick={() => setActive({ name: 'login' })}>Login</button>
-        <button onClick={() => setActive({ name: 'registration' })}>Registration</button>
-      </div>
-      <FormFinal
-        onSubmit={handleAuthorize}
-        validate={active.name !== 'login' ? validationMatchPassword : ''}
-      >
-        {({ form, submitting, pristine, values, handleSubmit }) => (
-          <Form className="form-login" onSubmit={handleSubmit}>
-            <Field name="email" validate={required}>
-              {({ input, meta }) => (
-                <Form.Group>
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="name@example.com" {...input} />
-                  <Error meta={meta} />
-                  {backendValidation?.errors && (
-                    <AlertForm danger={true} alertMsg={backendValidation.errors.email} />
-                  )}
-                </Form.Group>
-              )}
-            </Field>
-            <Field name="password" validate={required}>
-              {({ input, meta }) => (
-                <Form.Group>
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="password" {...input} />
-                  <Error meta={meta} />
-                  {backendValidation?.errors && (
-                    <AlertForm danger={true} alertMsg={backendValidation.errors.password} />
-                  )}
-                </Form.Group>
-              )}
-            </Field>
-            {active.name !== 'login' ? (
-              <Field name="password_confirmation" validate={required}>
+      <div className={styles.wrapperForm}>
+        <div className={styles.wrapperTitle}>
+          Please
+          <button
+            className={`${styles.loginBtn} ${active.name === 'login' ? styles.active : ''}`}
+            onClick={() => setActive({ name: 'login' })}
+          >
+            Login
+          </button>
+          or
+          <button
+            className={`${styles.loginBtn} ${active.name !== 'login' ? styles.active : ''}`}
+            onClick={() => setActive({ name: 'registration' })}
+          >
+            Registration
+          </button>
+        </div>
+        <FormFinal
+          onSubmit={handleAuthorize}
+          validate={active.name !== 'login' ? validationMatchPassword : ''}
+        >
+          {({ form, submitting, pristine, values, handleSubmit }) => (
+            <Form className={styles.formLogin} onSubmit={handleSubmit}>
+              <Field name="email" validate={required}>
                 {({ input, meta }) => (
                   <Form.Group>
-                    <Form.Label>Confirm password</Form.Label>
-                    <Form.Control type="password" placeholder="confirm password" {...input} />
+                    <Form.Label className={styles.formLabel}>Email address</Form.Label>
+                    <Form.Control type="email" placeholder="name@example.com" {...input} />
                     <Error meta={meta} />
                     {backendValidation?.errors && (
-                      <AlertForm
-                        danger={true}
-                        alertMsg={backendValidation.errors.password_confirmation}
-                      />
+                      <AlertForm danger={true} alertMsg={backendValidation.errors.email} />
                     )}
                   </Form.Group>
                 )}
               </Field>
-            ) : null}
-            <button type="submit" className="btn btn-primary" disabled={submitting || pristine}>
-              Sign in
-            </button>
-          </Form>
-        )}
-      </FormFinal>
+              <Field name="password" validate={required}>
+                {({ input, meta }) => (
+                  <Form.Group>
+                    <Form.Label className={styles.formLabel}>Password</Form.Label>
+                    <Form.Control type="password" placeholder="password" {...input} />
+                    <Error meta={meta} />
+                    {backendValidation?.errors && (
+                      <AlertForm danger={true} alertMsg={backendValidation.errors.password} />
+                    )}
+                  </Form.Group>
+                )}
+              </Field>
+              {active.name !== 'login' ? (
+                <Field name="password_confirmation" validate={required}>
+                  {({ input, meta }) => (
+                    <Form.Group>
+                      <Form.Label className={styles.formLabel}>Confirm password</Form.Label>
+                      <Form.Control type="password" placeholder="confirm password" {...input} />
+                      <Error meta={meta} />
+                      {backendValidation?.errors && (
+                        <AlertForm
+                          danger={true}
+                          alertMsg={backendValidation.errors.password_confirmation}
+                        />
+                      )}
+                    </Form.Group>
+                  )}
+                </Field>
+              ) : null}
+              <button type="submit" className="btn btn-primary" disabled={submitting || pristine}>
+                Sign in
+              </button>
+            </Form>
+          )}
+        </FormFinal>
+      </div>
     </>
   );
 };

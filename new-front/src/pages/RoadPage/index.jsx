@@ -1,17 +1,22 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Title } from 'components';
+import img1 from '../../assets/img/imgRoad1.png';
+import img2 from '../../assets/img/imgRoad2.png';
+import img3 from '../../assets/img/imgRoad3.png';
+import styles from './RoadPage.module.css';
 
 const RoadPage = () => {
   return (
     <>
-      <Container className="container get-started-warpper">
-        <h1 className="heading">How to get Started:</h1>
-        <Row>
+      <Container className={styles.wrapper}>
+        <Title text="How to get Started:" />
+        <Row className="d-flex align-items-center">
           <Col lg={2}>
-            <h2 className="num">01</h2>
+            <h2 className={styles.num}>01</h2>
           </Col>
           <Col lg={5}>
-            <img className="img img-fluid" src="img/01-img-02.png" alt="01-img" />
+            <Image src={img1} fluid={true} />
           </Col>
           <Col lg={5}>
             <Col className="col-content-inr">
@@ -24,9 +29,9 @@ const RoadPage = () => {
             </Col>
           </Col>
         </Row>
-        <Row>
+        <Row className="d-flex align-items-center">
           <Col lg={2}>
-            <h2 className="num">02</h2>
+            <h2 className={styles.num}>02</h2>
           </Col>
           <Col lg={4}>
             <div className="col-content-inr">
@@ -40,17 +45,17 @@ const RoadPage = () => {
           </Col>
           <Col lg={6}>
             <div className="col-img-inr">
-              <img className="img img-fluid" src="img/02-img.png" alt="02-img" />
+              <Image src={img2} fluid={true} />
             </div>
           </Col>
         </Row>
-        <Row>
+        <Row className="d-flex align-items-center">
           <Col lg={2}>
-            <h2 className="num">03</h2>
+            <h2 className={styles.num}>03</h2>
           </Col>
           <Col lg={6}>
             <div className="col-img-inr">
-              <img className="img img-fluid" src="img/03-img.png" alt="03-img" />
+              <Image src={img3} fluid={true} />
             </div>
           </Col>
           <Col lg={4}>

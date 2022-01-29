@@ -4,7 +4,7 @@ import { selectIsAuth, selectIsLoading } from '../../store/slices/auth';
 import { Navigate } from 'react-router-dom';
 import { OverlayngPortal } from '../../highComponents';
 import { LoginForm } from '../../containers';
-
+import { Title } from 'components';
 /*
  *  Test@test.ru
  * qwerty12
@@ -18,6 +18,7 @@ const LoginPage = (props) => {
   }
   return (
     <>
+      <Title text="Sign up" />
       <LoginForm />
       {isLoading && <OverlayngPortal />}
     </>

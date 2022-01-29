@@ -45,7 +45,7 @@ const MenuLinks = ({ asideLinks, closeMenuAfterLinking }) => {
   const dispatch = useDispatch();
   const handlerLogout = () => {
     dispatch(logoutUser());
-    closeMenuAfterLinking();
+    /* closeMenuAfterLinking(); */
 
     /*
      *  TODO добавить прослушку у роутера

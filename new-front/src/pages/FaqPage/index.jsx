@@ -1,9 +1,10 @@
 import React from 'react';
 import { Tab, Row, Nav, Col, Accordion } from 'react-bootstrap';
+import { Title } from 'components';
 const FaqPage = () => {
   return (
     <>
-      <h1>Faq page</h1>
+      <Title text="F.A.Q." />
       <Tab.Container id="left-tabs-example" defaultActiveKey="first">
         <Row>
           <Col sm={3}>

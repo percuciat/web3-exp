@@ -17,10 +17,10 @@ const MainLayout = () => {
     <>
       <Header />
       {isMenuOpen && <Sidebar />}
-      <main className="py-4">
-        <div className="container">
+      <main className="py-5">
+        <section className="container">
           <Outlet />
-        </div>
+        </section>
       </main>
       <Footer />
     </>

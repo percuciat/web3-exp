@@ -42,6 +42,7 @@ html {
   background-image: url('assets/img/bg.jpg');
   background-position: top center;
   background-repeat: no-repeat;
+  background-size: cover;
 }
 
 *,
@@ -143,6 +144,12 @@ textarea {
   display: flex;
   justify-content: space-between;
 }
+.accordion-body{
+  background: black;
+}
+.nav-pills .nav-link {
+  cursor: pointer;
+}
 .account-balance {
   font-size: 2rem;
   font-weight: bold;
@@ -169,16 +176,6 @@ textarea {
   padding: 0.5rem !important;
 }
 
-.form-label {
-  color: white;
-}
-
-.form-login {
-  display: grid;
-  grid-gap: 1rem;
-  max-width: 500px;
-  margin: auto;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;

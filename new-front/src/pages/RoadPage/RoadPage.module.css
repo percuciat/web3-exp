@@ -1,0 +1,7 @@
+.num {
+  font-size: 2.5rem;
+  color: var(--attentionColor);
+}
+.wrapper{
+  margin-bottom: 60px;
+}

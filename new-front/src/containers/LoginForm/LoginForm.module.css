@@ -1,5 +1,30 @@
 .wrapperTitle {
+  margin-bottom: 2rem;
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  column-gap: 1rem;
+  font-size: 1.5rem;
+}
+.loginBtn {
+  color: white;
+  border: none;
+  background: none;
+}
+
+.active {
+  background: orange;
+}
+
+.wrapperForm {
+  max-width: 500px;
+  margin: auto;
+}
+
+.formLabel {
+  color: white;
+}
+
+.formLogin {
+  display: grid;
+  grid-gap: 1rem;
 }
