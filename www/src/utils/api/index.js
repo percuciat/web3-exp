@@ -31,21 +31,15 @@ const makeRequest = async (url, method, data = {}, header = {}) => {
 
 export default makeRequest; */
 
-const makeRequest = (method, ...args) => {
-  const [url, options] = args
-  const {
-    data = {},
-    headers = {},
-    baseUrl = 'http://api.thelabyrinth.world'
-  } = options
+const makeRequest = (method, url, headers, data) => {
+  console.log(data);
   return axios({
-    method,
-    baseUrl: 'http://api.thelabyrinth.world',
-    url,
-    headers,
-    withCredentials: false,
-    data
-  })
+      method,
+      url: 'http://api.thelabyrinth.world/' + url,
+      // baseUrl: 'http://api.thelabyrinth.world',
+      withCredentials: false,
+      data: data
+    })
     .then((res) => {
       if (res.data.error) {
         throw new Error(res.data.error)
@@ -59,17 +53,17 @@ const makeRequest = (method, ...args) => {
     })
 }
 
-export const api = (methodRequest, url, options) => {
+export const api = (methodRequest, url, headers, data) => {
   const token = Storage.getStorage('token')
   const tokenDate = Storage.getStorage('tokenDate')
   if (token) {
-    options.headers = { Authorization: `Bearer ${token}` }
+    headers = { Authorization: `Bearer ${token}` }
     if ((getPureMinutes() - tokenDate) >= 50) {
-      const response = makeRequest('get', 'api/auth/refresh', options.headers)
+      const response = makeRequest('get', 'api/auth/refresh', headers)
       Storage.setStorage('token', response.data.token)
       Storage.setStorage('tokenDate', getPureMinutes())
       options.headers = { Authorization: `Bearer ${response.data.token}` }
     }
   }
-  return makeRequest(methodRequest, url, options)
+  return makeRequest(methodRequest, url, headers, data)
 }

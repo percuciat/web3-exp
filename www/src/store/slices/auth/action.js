@@ -38,14 +38,12 @@ export const registerUser = createAsyncThunk(
   async (dataForm, { dispatch, rejectWithValue }) => {
     const { email, password, password_confirmation } = dataForm
     try {
-      const response = await api('post', 'api/auth/register', {
-        data: {
+      const response = await api('post', 'api/auth/register', {}, {
           email,
           password,
           password_confirmation
-        }
       })
-      return response.data.token
+      return response.token
     } catch (e) {
       console.log('ERROR Register--', e)
       return rejectWithValue(e.response.data)
