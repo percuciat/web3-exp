@@ -19,13 +19,8 @@ export const loginUser = createAsyncThunk(
     /* console.log('extra-', extra)
     extra() */
     try {
-      const response = await api('post', 'api/auth/login', {
-        data: {
-          email,
-          password
-        }
-      })
-      return response.data.token
+      const response = await api('post', 'api/auth/login', {}, {email, password})
+      return response.token
     } catch (e) {
       console.log('ERROR sending token--', e)
       return rejectWithValue(e.response.data)
