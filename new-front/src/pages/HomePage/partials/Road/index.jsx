@@ -1,14 +1,14 @@
 import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { Title } from 'components';
-import img1 from '../../assets/img/imgRoad1.png';
-import img2 from '../../assets/img/imgRoad2.png';
-import img3 from '../../assets/img/imgRoad3.png';
-import styles from './RoadPage.module.css';
+import img1 from '../../../../assets/img/imgRoad1.png';
+import img2 from '../../../../assets/img/imgRoad2.png';
+import img3 from '../../../../assets/img/imgRoad3.png';
+import styles from './Road.module.css';
 
-const RoadPage = () => {
+const Road = () => {
   return (
-    <>
+    <section id="road">
       <Container className={styles.wrapper}>
         <Title text="How to get Started:" />
         <Row className="d-flex align-items-center">
@@ -70,7 +70,7 @@ const RoadPage = () => {
           </Col>
         </Row>
       </Container>
-    </>
+    </section>
   );
 };
-export default RoadPage;
+export default Road;

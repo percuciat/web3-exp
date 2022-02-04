@@ -1,24 +1,31 @@
 .sidebar {
-  background: var(--darkThemePrimary);
+  z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 10;
+  background: rgba(0, 0, 0, 0.7);
+  transition: var(--transition);
+}
+
+.sidebar__content {
+  position: relative;
+  height: 100vh;
+  width: 50%;
   display: grid;
   place-items: center;
+  background: var(--darkThemePrimary);
+  animation-duration: .4s;
+  animation-iteration-count: none;
+  animation-name: show;
+  animation-timing-function: linear;
   transition: var(--transition);
-  animation: showAside 0.4s ease;
 }
 
-.sidebar__container {
-  position: relative;
-}
-
-@keyframes showAside {
+@keyframes show {
   from {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
   to {
     transform: translateX(0);

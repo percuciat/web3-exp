@@ -12,12 +12,12 @@
 }
 
 .active {
-  background: orange;
+  background: var(--attentionViolet);
 }
 
 .wrapperForm {
-  max-width: 500px;
-  margin: auto;
+  /*  max-width: 500px;
+  margin: auto; */
 }
 
 .formLabel {

@@ -10,7 +10,7 @@ const MainLayout = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setWindowSize(window.innerWidth));
-  }, []);
+  }, [dispatch]);
 
   useResizeWindow();
   return (

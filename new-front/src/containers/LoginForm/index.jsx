@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser, loginUser } from '../../store/slices/auth/action';
-import { Error, AlertForm } from '../../components';
+import { Error, AlertForm, Title } from '../../components';
 import { Form as FormFinal, Field } from 'react-final-form';
 import styles from './LoginForm.module.css';
 
-const LoginForm = () => {
+const LoginForm = (props) => {
+  const { callback } = props;
   const [active, setActive] = useState({
     name: 'login',
   });
@@ -40,9 +41,11 @@ const LoginForm = () => {
     dispatch(requestAuthorize)
       .then((r) => {
         //TODO: for async operation - need fix
-        console.log('register', r);
+        console.log('login form:', r);
         if (r.payload.errors) {
           setBackendValidation(r.payload);
+        } else {
+          callback();
         }
       })
       .catch((e) => {
@@ -52,6 +55,7 @@ const LoginForm = () => {
 
   return (
     <>
+      {/*  <Title text="Sign up" /> */}
       <div className={styles.wrapperForm}>
         <div className={styles.wrapperTitle}>
           Please

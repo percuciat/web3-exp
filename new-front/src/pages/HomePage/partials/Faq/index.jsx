@@ -1,9 +1,9 @@
 import React from 'react';
 import { Tab, Row, Nav, Col, Accordion } from 'react-bootstrap';
 import { Title } from 'components';
-const FaqPage = () => {
+const Faq = () => {
   return (
-    <>
+    <section id="faq">
       <Title text="F.A.Q." />
       <Tab.Container id="left-tabs-example" defaultActiveKey="first">
         <Row>
@@ -102,8 +102,8 @@ const FaqPage = () => {
           </Col>
         </Row>
       </Tab.Container>
-    </>
+    </section>
   );
 };
 
-export default FaqPage;
+export default Faq;

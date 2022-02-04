@@ -1,10 +1,9 @@
-import RoadPage from './RoadPage';
-import AboutPage from './AboutPage';
-import FaqPage from './FaqPage';
+import RoadPage from './HomePage/partials/Road';
+import AboutPage from './HomePage/partials/About';
+import FaqPage from './HomePage/partials/Faq';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import ProfilePage from './ProfilePage';
-import RegisterPage from './RegisterPage';
 import NavigationPage from './NavigationPage';
 import PotatoPage from './PotatoPage';
 import LabyrinthPage from './LabyrinthPage';
@@ -20,7 +19,6 @@ export {
   HomePage,
   LoginPage,
   ProfilePage,
-  RegisterPage,
   NavigationPage,
   PotatoPage,
   LocationPage,

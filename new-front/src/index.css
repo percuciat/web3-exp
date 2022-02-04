@@ -9,7 +9,8 @@ Variables
 
 :root {
   --primaryColor: hsl(209, 34%, 30%);
-  --attentionColor: orange;
+  --attentionColor: #f5a718;
+  --attentionViolet: #9e15d6;
   --boldColor: hsl(209, 61%, 16%);
   --whiteColor: #f0f0f0;
   --grayLightColor: #f1f5f8;
@@ -39,10 +40,11 @@ Variables
 }
 
 html {
-  background-image: url('assets/img/bg.jpg');
+  background-color: var(--darkThemeSecondary);
+  /*  background-image: url('assets/img/bg.jpg');
   background-position: top center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
 }
 
 *,
@@ -70,13 +72,15 @@ ul {
   list-style-type: none;
   color: var(--primaryColor);
 }
-
+section {
+  padding: 4rem 0;
+}
 a {
   text-decoration: none;
   color: var(--whiteColor);
 }
 a:hover {
-  color: var(--attentionColor);
+  color: var(--darkThemeSecondary);
 }
 
 button:focus {
@@ -144,7 +148,7 @@ textarea {
   display: flex;
   justify-content: space-between;
 }
-.accordion-body{
+.accordion-body {
   background: black;
 }
 .nav-pills .nav-link {
@@ -175,7 +179,6 @@ textarea {
   margin-top: 1rem;
   padding: 0.5rem !important;
 }
-
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;

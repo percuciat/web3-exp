@@ -30,7 +30,7 @@ export const loginUser = createAsyncThunk(
       return response.token;
     } catch (e) {
       console.log('ERROR sending token--', e);
-      return rejectWithValue(e.response.data);
+      return rejectWithValue(e);
     }
   }
 );

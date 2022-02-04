@@ -1,8 +1,11 @@
 
 .menu__links{
+    font-size: 1.1rem;
+    text-transform: uppercase;
     color: var(--whiteColor);
     text-decoration: none;
     cursor: pointer;
+    transition: var(--transition);
 }
 
 .menu__headerLinks{
@@ -29,7 +32,7 @@
 }
 
 .sidebar__links .menu__links:hover{
-    color: var(--attentionColor);
+    color: var(--darkThemeSecondary);
     cursor: pointer;
 }
 

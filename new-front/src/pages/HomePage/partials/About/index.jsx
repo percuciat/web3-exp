@@ -2,12 +2,12 @@ import React from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
 import { Title } from 'components';
 
-import cards from '../../assets/img/cards.png';
-import test from '../../assets/img/testCard.png';
+import cards from '../../../../assets/img/cards.png';
+import test from '../../../../assets/img/testCard.png';
 
-const AboutPage = () => {
+const About = () => {
   return (
-    <>
+    <section id="about">
       <Title text="About" />
       <Row>
         <Col lg={6}>
@@ -138,7 +138,7 @@ const AboutPage = () => {
   </div>
 </div>
 </div> */}
-    </>
+    </section>
   );
 };
-export default AboutPage;
+export default About;

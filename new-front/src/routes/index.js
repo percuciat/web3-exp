@@ -73,11 +73,11 @@ const routes = [
         path: 'registration',
         element: <RegisterPage />,
       }, */
-      {
+      /*  {
         path: 'login',
         element: <LoginPage />,
-      },
-      {
+      }, */
+      /*  {
         path: 'about',
         element: <AboutPage />,
       },
@@ -88,7 +88,7 @@ const routes = [
       {
         path: 'faq',
         element: <FaqPage />,
-      },
+      }, */
       {
         path: '*',
         element: <Empty404 />,

@@ -7,6 +7,7 @@ import { Anchor } from 'ual-anchor';
 import { Wax } from '@eosdacio/ual-wax';
 import { UALProvider, withUAL } from 'ual-reactjs-renderer';
 import { WaxBtn } from '../../components';
+import { About, Faq, Road } from './partials';
 import { sendToken } from '../../store/slices/auth/action';
 
 // Wax test
@@ -50,9 +51,13 @@ const HomePage = () => {
     <>
       <h1>Home</h1>
       <div>GET PARAMS: {codeParam}</div>
-      <UALProvider chains={[wax]} authenticators={[wax, anchor]} appName={'My App'}>
+      <About />
+      <Road />
+      <Faq />
+
+      {/* <UALProvider chains={[wax]} authenticators={[wax, anchor]} appName={'My App'}>
         <MyUALConsumer />
-      </UALProvider>
+      </UALProvider> */}
     </>
   );
 };
