@@ -54,10 +54,9 @@ const HomePage = () => {
       <About />
       <Road />
       <Faq />
-
-      {/* <UALProvider chains={[wax]} authenticators={[wax, anchor]} appName={'My App'}>
+      <UALProvider chains={[wax]} authenticators={[wax, anchor]} appName={'My App'}>
         <MyUALConsumer />
-      </UALProvider> */}
+      </UALProvider> 
     </>
   );
 };
