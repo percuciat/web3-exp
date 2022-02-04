@@ -4,8 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-.idea
-
+.vscode
 # testing
 /coverage
 
@@ -13,9 +12,6 @@
 /build
 
 # misc
-.dockerignore
-.env
-
 .DS_Store
 .env.local
 .env.development.local

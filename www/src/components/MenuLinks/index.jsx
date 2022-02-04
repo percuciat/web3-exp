@@ -1,61 +1,77 @@
-import React, {useEffect} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {logoutUser} from "../../store/slices/auth/action";
-import {useDispatch, useSelector} from "react-redux";
-import {selectIsAuth} from "../../store/slices/auth";
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { logoutUser } from '../../store/slices/auth/action';
+import { useDispatch } from 'react-redux';
 import styles from './MenuLinks.module.css';
+import { HashLink } from 'react-router-hash-link';
 
-const unAuthMenu = [
+const anchorsMenu = [
   {
-    name: 'Login',
-    link: 'login'
+    name: 'About',
+    hash: '#about',
   },
   {
-    name: 'Registration',
-    link: 'registration'
-  }
+    name: 'Road map',
+    hash: '#road',
+  },
+  {
+    name: 'Faq',
+    hash: '#faq',
+  },
 ];
 
 const authMenu = [
   {
     name: 'Navigation',
-    link: 'navigation'
+    link: 'navigation',
   },
   {
     name: 'Profile',
-    link: 'profile'
-  }
+    link: 'profile',
+  },
 ];
 
-const MenuLinks = ({asideLinks, closeMenuAfterLinking}) => {
-  const auth = useSelector(selectIsAuth);
-  const navigate = useNavigate();
+const MenuLinks = ({ asideLinks, closeMenuAfterLinking, isAuth }) => {
   const dispatch = useDispatch();
   const handlerLogout = () => {
     dispatch(logoutUser());
-    // TODO добавить прослушку у роутера
-    asideLinks && closeMenuAfterLinking()
   };
-  // navigate('/login', { replace: true })
 
-  const menuList = !auth ? unAuthMenu : authMenu;
   return (
     <ul className={`${asideLinks ? styles.sidebar__links : styles.menu__headerLinks} `}>
-      {menuList.map(({link, name}) => {
+      {anchorsMenu.map(({ hash, name }) => {
         return (
           <li key={name}>
-            <Link to={link} onClick={asideLinks && closeMenuAfterLinking} className={styles.menu__links}>{name}</Link>
+            <HashLink to={hash} className={styles.menu__links}>
+              {name}
+            </HashLink>
           </li>
-        )
+        );
       })}
-      {auth && (
-        <li>
-            <span className={styles.menu__links}
-                  onClick={handlerLogout}>Logout</span>
-        </li>
+      {isAuth && (
+        <>
+          {authMenu.map(({ link, name }) => {
+            return (
+              <li key={name}>
+                <Link
+                  to={link}
+                  onClick={asideLinks && closeMenuAfterLinking}
+                  className={styles.menu__links}
+                >
+                  {name}
+                </Link>
+              </li>
+            );
+          })}
+          <li>
+            <span className={styles.menu__links} onClick={handlerLogout}>
+              Logout
+            </span>
+          </li>
+        </>
       )}
     </ul>
-  )
+  );
 };
 
 export default MenuLinks;

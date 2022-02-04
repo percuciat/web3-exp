@@ -1,8 +1,5 @@
 {
-  "trailingComma": "es5",
+  "printWidth": 100,
   "tabWidth": 2,
-  "semi": false,
-  "singleQuote": false,
-  "printWidth": 200,
-  "prettier.prettierPath": "src"
+  "singleQuote": true
 }

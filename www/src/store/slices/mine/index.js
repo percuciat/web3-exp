@@ -1,16 +1,16 @@
-import {createSlice} from '@reduxjs/toolkit'
-import {startMine} from "./action";
+import { createSlice } from '@reduxjs/toolkit';
+import { startMine } from './action';
 
-const {actions, reducer} = createSlice({
+const { actions, reducer } = createSlice({
   name: 'mine',
   initialState: {
     isVerify: false,
-    transactionData: {}
+    transactionData: {},
   },
   reducers: {
     verifyUser(state) {
-      state.isVerify = true
-    }
+      state.isVerify = true;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -20,17 +20,17 @@ const {actions, reducer} = createSlice({
 
       .addCase(startMine.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.transactionData = action.payload
+        state.transactionData = action.payload;
       })
 
       .addCase(startMine.rejected, (state, action) => {
         state.isLoading = false;
-        console.log('START MINE REJECTED')
-      })
-  }
+        console.log('START MINE REJECTED');
+      });
+  },
 });
 
 export const selectIsVerify = (state) => state.mine.isVerify;
 export const { verifyUser } = actions;
 
-export default reducer
+export default reducer;

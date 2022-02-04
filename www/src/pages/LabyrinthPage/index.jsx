@@ -1,9 +1,4 @@
-import React from "react";
+import React from 'react';
 
-const LabyrinthPage  = () => {
-  return (
-    <h1>LabyrinthPage</h1>
-  )
-};
-
+const LabyrinthPage = () => <h1>LabyrinthPage</h1>;
 export default LabyrinthPage;
