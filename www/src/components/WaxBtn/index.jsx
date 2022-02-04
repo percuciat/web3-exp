@@ -66,7 +66,7 @@ const WaxBtn = ({ ual: { activeUser, activeAuthenticator, logout, showModal } })
           </span>
         </button>
       )}
-      {/* {accountWallet && (
+       {accountWallet && (
         <h3 className="ual-subtitle">
           Logged in as <span className="account-name">{accountWallet}</span>
         </h3>
@@ -92,7 +92,7 @@ const WaxBtn = ({ ual: { activeUser, activeAuthenticator, logout, showModal } })
           </div>
         </div>
       )}
-      <button onClick={testHandler}>Mine</button> */}
+      <button onClick={testHandler}>Mine</button> 
     </div>
   );
 };
