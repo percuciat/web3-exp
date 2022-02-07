@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser, loginUser } from '../../store/slices/auth/action';
-import { Error, AlertForm, Title } from '../../components';
+import { registerUser, loginUser } from 'store/slices/auth/action';
+import { Error, AlertForm, Title } from 'components';
 import { Form as FormFinal, Field } from 'react-final-form';
 import styles from './LoginForm.module.css';
 

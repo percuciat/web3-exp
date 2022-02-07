@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setWindowSize } from '../store/slices/common';
+import { setWindowSize } from 'store/slices/common';
 
 export const useResizeWindow = () => {
   const dispatch = useDispatch();

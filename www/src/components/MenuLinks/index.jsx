@@ -1,22 +1,21 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { logoutUser } from '../../store/slices/auth/action';
-import { useDispatch } from 'react-redux';
-import styles from './MenuLinks.module.css';
+import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+
+import styles from './MenuLinks.module.css';
 
 const anchorsMenu = [
   {
     name: 'About',
-    hash: '#about',
+    hash: '/#about',
   },
   {
     name: 'Road map',
-    hash: '#road',
+    hash: '/#road',
   },
   {
     name: 'Faq',
-    hash: '#faq',
+    hash: '/#faq',
   },
 ];
 
@@ -32,11 +31,6 @@ const authMenu = [
 ];
 
 const MenuLinks = ({ asideLinks, closeMenuAfterLinking, isAuth }) => {
-  const dispatch = useDispatch();
-  const handlerLogout = () => {
-    dispatch(logoutUser());
-  };
-
   return (
     <ul className={`${asideLinks ? styles.sidebar__links : styles.menu__headerLinks} `}>
       {anchorsMenu.map(({ hash, name }) => {
@@ -63,11 +57,6 @@ const MenuLinks = ({ asideLinks, closeMenuAfterLinking, isAuth }) => {
               </li>
             );
           })}
-          <li>
-            <span className={styles.menu__links} onClick={handlerLogout}>
-              Logout
-            </span>
-          </li>
         </>
       )}
     </ul>

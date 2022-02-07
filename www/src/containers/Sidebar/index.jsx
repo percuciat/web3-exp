@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsAuth } from '../../store/slices/auth';
-import { MenuLinks } from '../../components';
+import { selectIsAuth } from 'store/slices/auth';
+import { MenuLinks } from 'components';
 import { FaTimes } from 'react-icons/fa';
-import { closeMenu } from '../../store/slices/common';
+import { closeMenu } from 'store/slices/common';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import styles from './Sidebar.module.css';
 

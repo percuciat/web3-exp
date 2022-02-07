@@ -1,46 +1,30 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectIsActiveUser,
-  selectAccountWallet,
-  selectAccountBalance,
-  setActiveUser,
-} from '../../store/slices/wax';
-import { updateAccountBalance, makeTransaction } from '../../store/slices/wax/action';
-import { startMine } from '../../store/slices/mine/action';
-import { updateUser } from '../../store/slices/wax/';
+import { selectIsActiveUser, updateUser } from 'store/slices/wax';
+import { updateAccountBalance, makeTransaction } from 'store/slices/wax/action';
 
 const WaxBtn = ({ ual: { activeUser, activeAuthenticator, logout, showModal } }) => {
   const dispatch = useDispatch();
   const isActiveUserWax = useSelector(selectIsActiveUser);
-  const accountWallet = useSelector(selectAccountWallet);
-  const accountBalance = useSelector(selectAccountBalance);
 
-  useEffect(() => {
+  /*  useEffect(() => {
     console.log('activeUser--', activeUser);
     if (activeUser && !isActiveUserWax) {
-      /*  dispatch(updateUser(activeUser)).
-        then((responseAccName) => {
-          dispatch(updateAccountBalance(responseAccName.payload))
-        }).
-        catch((e) => {
-          console.log("ERROR, USE effect update", e)
-        }) */
       dispatch(updateUser(activeUser));
       dispatch(updateAccountBalance(activeUser.accountName));
     }
-  }, []);
+  }, []); */
 
-  const transactionHandler = async () => {
+  /*  const transactionHandler = async () => {
     try {
       await dispatch(makeTransaction(activeUser));
       await dispatch(updateAccountBalance(accountWallet));
     } catch (err) {
       console.log('err', err);
     }
-  };
+  }; */
 
-  const testHandler = () => {
+  /* const testHandler = () => {
     dispatch(startMine())
       .then((r) => {
         console.log('Res startMine', r);
@@ -55,18 +39,18 @@ const WaxBtn = ({ ual: { activeUser, activeAuthenticator, logout, showModal } })
       .catch((e) => {
         console.log('EEE', e);
       });
-  };
+  }; */
 
   return (
-    <div className="account-wrapper">
+    <>
       {!activeUser && !isActiveUserWax && (
         <button className="ual-btn-wrapper btn btn-primary">
           <span role="button" onClick={showModal} className="ual-generic-button">
-            Show UAL Modal
+            Login Wax
           </span>
         </button>
       )}
-      {accountWallet && (
+      {/*  {accountWallet && (
         <h3 className="ual-subtitle">
           Logged in as <span className="account-name">{accountWallet}</span>
         </h3>
@@ -91,9 +75,9 @@ const WaxBtn = ({ ual: { activeUser, activeAuthenticator, logout, showModal } })
             )}
           </div>
         </div>
-      )}
-      <button onClick={testHandler}>Mine</button>
-    </div>
+      )} */}
+      {/*  <button onClick={testHandler}>Mine</button> */}
+    </>
   );
 };
 

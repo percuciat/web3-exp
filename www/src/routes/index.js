@@ -1,33 +1,38 @@
 import React, { useEffect } from 'react';
-import { MainLayout } from '../layouts';
+import { Navigate, useLocation, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsAuth } from 'store/slices/auth';
+import { withUAL } from 'ual-reactjs-renderer';
+
+import { MainLayout } from 'layouts';
 import {
   Empty404,
   LoginPage,
-  AboutPage,
-  FaqPage,
-  RoadPage,
   HomePage,
   ProfilePage,
-  RegisterPage,
   NavigationPage,
   LabyrinthPage,
   PotatoPage,
   GovernmentPage,
   SquarePage,
 } from '../pages';
-import { Navigate, useLocation, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectIsAuth } from '../store/slices/auth';
 
-function RequireAuth() {
+const RoutesUAL = withUAL(RequireAuth);
+
+function RequireAuth(props) {
+  const { ual } = props;
   const location = useLocation();
   const auth = useSelector(selectIsAuth);
+  /* console.log('ual--', ual); */
+  /* if (!ual.activeUser) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  } */
 
   if (!auth) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/" state={{ from: location }} replace />;
   }
 
-  return <Outlet />;
+  return <Outlet context={{ ual, withUAL }} />;
 }
 
 const routes = [
@@ -39,7 +44,7 @@ const routes = [
         element: <HomePage />,
       },
       {
-        element: <RequireAuth />,
+        element: <RoutesUAL />,
         children: [
           {
             path: 'navigation',
@@ -69,25 +74,9 @@ const routes = [
           },
         ],
       },
-      /* {
-        path: 'registration',
-        element: <RegisterPage />,
-      }, */
       /*  {
         path: 'login',
         element: <LoginPage />,
-      }, */
-      /*  {
-        path: 'about',
-        element: <AboutPage />,
-      },
-      {
-        path: 'road',
-        element: <RoadPage />,
-      },
-      {
-        path: 'faq',
-        element: <FaqPage />,
       }, */
       {
         path: '*',

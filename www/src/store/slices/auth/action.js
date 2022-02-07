@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { makeRequest } from '../../../utils/api';
+import { makeRequest } from 'utils/api';
 
 export const sendToken = createAsyncThunk(
   'auth/AUTH_USER',
@@ -44,7 +44,7 @@ export const registerUser = createAsyncThunk(
         url: 'api/auth/register',
         data: { email, password, password_confirmation },
       });
-      return response.data.token;
+      return response.token;
     } catch (e) {
       console.log('ERROR Register--', e);
       return rejectWithValue(e);

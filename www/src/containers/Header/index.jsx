@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
+import { withUAL } from 'ual-reactjs-renderer';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Button, Modal } from 'react-bootstrap';
-import { isCorrectMediaScreen } from '../../utils/common/isCorrectMediaScreen';
-import { selectWidthScreen, openMenu } from '../../store/slices/common';
-import { selectIsLoading, selectIsAuth } from '../../store/slices/auth';
-import MenuLinks from '../../components/MenuLinks';
-import { OverlayngPortal } from '../../highComponents';
-import { LoginForm } from 'containers';
 import { FaAlignRight } from 'react-icons/fa';
-import { TABLET_MEDIA } from '../../consts';
+import { isCorrectMediaScreen } from 'utils/common/isCorrectMediaScreen';
+import { selectWidthScreen, openMenu } from 'store/slices/common';
+import { selectIsLoading, selectIsAuth, selectUserData } from 'store/slices/auth';
+import { MenuLinks, WaxBtn, WaxLoginInfo, WaxLogoutBtn } from 'components';
+import { OverlayngPortal } from 'highComponents';
+import { LoginForm } from 'containers';
+import { TABLET_MEDIA } from 'consts';
 import styles from './Header.module.css';
 
-const Header = () => {
+const Header = (props) => {
+  const { ual } = props;
   const dispatch = useDispatch();
   const widthScreen = useSelector(selectWidthScreen);
   const auth = useSelector(selectIsAuth);
+  const userData = useSelector(selectUserData);
   const isLoading = useSelector(selectIsLoading);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -24,6 +27,9 @@ const Header = () => {
     dispatch(openMenu());
     document.body.style.overflow = 'hidden';
   };
+  const WaxBtnUAL = withUAL(WaxBtn);
+  const WaxLoginInfoUAL = withUAL(WaxLoginInfo);
+  const WaxLogoutBtnUAL = withUAL(WaxLogoutBtn);
 
   return (
     <header className={`${styles.header}`}>
@@ -40,6 +46,13 @@ const Header = () => {
                 Play now
               </Button>
             )}
+            {auth && userData?.status !== 0 ? (
+              ual.activeUser ? (
+                <WaxLoginInfoUAL />
+              ) : (
+                <WaxBtnUAL />
+              )
+            ) : null}
             {isCorrectMediaScreen(widthScreen, TABLET_MEDIA.name) && <MenuLinks isAuth={auth} />}
             {!isCorrectMediaScreen(widthScreen, TABLET_MEDIA.name) && (
               <button
@@ -51,6 +64,7 @@ const Header = () => {
                 <FaAlignRight />
               </button>
             )}
+            {auth && <WaxLogoutBtnUAL />}
           </div>
         </nav>
       </Container>
@@ -65,4 +79,6 @@ const Header = () => {
   );
 };
 
-export default Header;
+const HeaderUAL = withUAL(Header);
+
+export default HeaderUAL;

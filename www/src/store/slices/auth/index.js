@@ -7,8 +7,8 @@ import {
   logoutUser,
   updateProfile,
 } from './action';
-import { Storage } from '../../../utils/storage';
-import getPureMinutes from '../../../utils/common/getPureMinutes';
+import { Storage } from 'utils/storage';
+import getPureMinutes from 'utils/common/getPureMinutes';
 
 const { actions, reducer } = createSlice({
   name: 'auth',
@@ -63,12 +63,21 @@ const { actions, reducer } = createSlice({
         state.isLoading = false;
       })
 
+      .addCase(logoutUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+
       .addCase(logoutUser.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.isAuth = false;
         state.userData = null;
         state.token = null;
         Storage.removeStorage('token');
         Storage.removeStorage('tokenDate');
+      })
+
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.isLoading = false;
       })
 
       .addCase(updateProfile.fulfilled, (state, action) => {

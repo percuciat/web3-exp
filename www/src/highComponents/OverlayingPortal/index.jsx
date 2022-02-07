@@ -1,5 +1,5 @@
 import React from 'react';
-import { Portal, Spinner } from '../../components';
+import { Portal, Spinner } from 'components';
 import styles from './OverlayngPortal.module.css';
 
 const OverlayngPortal = (props) => {

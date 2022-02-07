@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { makeRequest } from '../../../utils/api';
+import { makeRequest } from 'utils/api';
 
 export const startMine = createAsyncThunk(
   'mine/START_MINE',

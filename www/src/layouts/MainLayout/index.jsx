@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Header, Sidebar, Footer } from '../../containers';
+import { Header, Sidebar, Footer } from 'containers';
 import { useDispatch, useSelector } from 'react-redux';
-import { setWindowSize, selectIsMenuOpen } from '../../store/slices/common';
-import { useResizeWindow } from '../../hooks/useResizeWindow';
+import { setWindowSize, selectIsMenuOpen } from 'store/slices/common';
+import { useResizeWindow } from 'hooks/useResizeWindow';
 
 const MainLayout = () => {
   const isMenuOpen = useSelector(selectIsMenuOpen);
