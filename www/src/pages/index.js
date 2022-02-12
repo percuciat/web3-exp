@@ -2,7 +2,6 @@ import RoadPage from './HomePage/partials/Road';
 import AboutPage from './HomePage/partials/About';
 import FaqPage from './HomePage/partials/Faq';
 import HomePage from './HomePage';
-import LoginPage from './LoginPage';
 import ProfilePage from './ProfilePage';
 import NavigationPage from './NavigationPage';
 import PotatoPage from './PotatoPage';
@@ -17,7 +16,6 @@ export {
   FaqPage,
   RoadPage,
   HomePage,
-  LoginPage,
   ProfilePage,
   NavigationPage,
   PotatoPage,

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { makeRequest } from 'utils/api';
 
-export const sendToken = createAsyncThunk(
+export const getUserData = createAsyncThunk(
   'auth/AUTH_USER',
   async (dataToken, { getState, dispatch, rejectWithValue }) => {
     try {

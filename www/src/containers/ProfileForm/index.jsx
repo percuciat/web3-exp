@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { Form as FormFinal, Field } from 'react-final-form';
+import { Form as FormFinal, Field, useField } from 'react-final-form';
 import { useDispatch } from 'react-redux';
 import { updateProfile } from 'store/slices/auth/action';
 import { Error, AlertForm } from 'components';
 
 const ProfileForm = (props) => {
-  const { initialValue } = props;
+  const { userProfile } = props;
+  const walletProfile = userProfile?.wallet;
   const [backendValidation, setBackendValidation] = useState(null);
   const required = (value) => !value && 'Required';
   const dispatch = useDispatch();
-  const handleUpdateProfile = (props) => {
-    const { wallet } = props;
+
+  const handleUpdateProfile = (formData) => {
+    const { wallet } = formData;
     setBackendValidation(null);
     dispatch(updateProfile(wallet))
       .then((r) => {
@@ -41,7 +43,7 @@ const ProfileForm = (props) => {
       >
         {({ form, submitting, pristine, values, handleSubmit }) => (
           <Form className="form-login" onSubmit={handleSubmit}>
-            <Field name="wallet" validate={required} initialValue={initialValue}>
+            <Field name="wallet" validate={required} initialValue={walletProfile}>
               {({ input, meta }) => (
                 <Form.Group className="mb-3">
                   <Form.Label className="form-label">Authorize with wax cloud wallet</Form.Label>

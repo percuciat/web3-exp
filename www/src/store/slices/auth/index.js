@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   loginUser,
   registerUser,
-  sendToken,
+  getUserData,
   getProfileData,
   logoutUser,
   updateProfile,
 } from './action';
 import { Storage } from 'utils/storage';
-import getPureMinutes from 'utils/common/getPureMinutes';
+/* import getPureMinutes from 'utils/common/getPureMinutes'; */
 
 const { actions, reducer } = createSlice({
   name: 'auth',
@@ -29,8 +29,8 @@ const { actions, reducer } = createSlice({
     function authUser(state, action) {
       state.isAuth = true;
       Storage.setStorage('token', action.payload);
-      Storage.setStorage('tokenDate', getPureMinutes());
-      state.tokenDate = getPureMinutes();
+      /*  Storage.setStorage('tokenDate', getPureMinutes());
+      state.tokenDate = getPureMinutes(); */
       state.token = action.payload;
       state.isLoading = false;
     }
@@ -54,12 +54,16 @@ const { actions, reducer } = createSlice({
         state.isLoading = false;
       })
 
-      .addCase(sendToken.fulfilled, (state, action) => {
+      .addCase(getUserData.pending, (state, action) => {
+        state.isLoading = true;
+      })
+
+      .addCase(getUserData.fulfilled, (state, action) => {
         state.userData = action.payload;
         state.isLoading = false;
       })
 
-      .addCase(sendToken.rejected, (state, action) => {
+      .addCase(getUserData.rejected, (state, action) => {
         state.isLoading = false;
       })
 

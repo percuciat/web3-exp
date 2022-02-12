@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectIsAuth } from 'store/slices/auth';
 import { withUAL } from 'ual-reactjs-renderer';
+import { sendToken } from 'store/slices/auth/action';
 
 import { MainLayout } from 'layouts';
 import {
@@ -23,10 +24,11 @@ function RequireAuth(props) {
   const { ual } = props;
   const location = useLocation();
   const auth = useSelector(selectIsAuth);
-  /* console.log('ual--', ual); */
-  /* if (!ual.activeUser) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  } */
+  /* const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(sendToken());
+  }, [dispatch]); */
 
   if (!auth) {
     return <Navigate to="/" state={{ from: location }} replace />;
@@ -74,10 +76,6 @@ const routes = [
           },
         ],
       },
-      /*  {
-        path: 'login',
-        element: <LoginPage />,
-      }, */
       {
         path: '*',
         element: <Empty404 />,

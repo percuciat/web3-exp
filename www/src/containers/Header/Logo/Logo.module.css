@@ -1,0 +1,7 @@
+.logo__link {
+  font-family: var(--ff-third), cursive;
+  font-size: 22px;
+  padding: 0;
+  text-decoration: none;
+  color: var(--whiteColor);
+}

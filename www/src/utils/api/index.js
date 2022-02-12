@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Storage } from '../storage';
-import getPureMinutes from '../common/getPureMinutes';
 
 const apiClient = axios.create({
   baseURL: 'http://api.thelabyrinth.world',

@@ -1,0 +1,14 @@
+.toggleBtn {
+  order: 3;
+  font-size: 2rem;
+  line-height: 1rem;
+  background: transparent;
+  border-color: transparent;
+  color: var(--whiteColor);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.toggleBtn:hover {
+  color: var(--darkThemeSecondary);
+}

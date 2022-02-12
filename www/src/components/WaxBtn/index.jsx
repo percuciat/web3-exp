@@ -50,33 +50,6 @@ const WaxBtn = ({ ual: { activeUser, activeAuthenticator, logout, showModal } })
           </span>
         </button>
       )}
-      {/*  {accountWallet && (
-        <h3 className="ual-subtitle">
-          Logged in as <span className="account-name">{accountWallet}</span>
-        </h3>
-      )}
-      {accountBalance && (
-        <div className="account-data">
-          <h3 className="ual-subtitle">
-            Balance: <span className="account-name">{accountBalance}</span>
-          </h3>
-          <div className="account-block">
-            <button className="ual-btn-wrapper btn btn-success">
-              <span className="ual-generic-button blue" onClick={transactionHandler}>
-                Transfer 1 eos to example
-              </span>
-            </button>
-            {Boolean(activeUser) && Boolean(activeAuthenticator) && (
-              <button className="ual-btn-wrapper btn btn-primary">
-                <span className="ual-generic-button red" onClick={logout}>
-                  Logout
-                </span>
-              </button>
-            )}
-          </div>
-        </div>
-      )} */}
-      {/*  <button onClick={testHandler}>Mine</button> */}
     </>
   );
 };
