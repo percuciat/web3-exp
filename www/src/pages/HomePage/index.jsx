@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, useSearchParams } from 'react-router-dom';
 import { makeRequest } from 'utils/api';
-import { About, Faq, Road } from './partials';
+import { About } from './partials';
 
 const HomePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,11 +18,9 @@ const HomePage = () => {
 
   return (
     <>
-      <h1>Home</h1>
-      <div>GET PARAMS: {codeParam}</div>
+      {/* <h1>Home</h1>
+        <div>GET PARAMS: {codeParam}</div> */}
       <About />
-      <Road />
-      <Faq />
     </>
   );
 };

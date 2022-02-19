@@ -8,7 +8,7 @@ const Footer = ({ isDark, isRu }) => (
       {/* <SocialLinks styleClass="footer__links"/>*/}
       <p className={styles.footer__title}>
         copyright&copy;2018-{new Date().getFullYear()}
-        <span className={styles.text}> Aden-Max </span>{' '}
+        <span className={styles.text}> China Xioa </span>{' '}
         {isRu ? 'все права защищены' : 'all rights reserved'}
       </p>
     </div>

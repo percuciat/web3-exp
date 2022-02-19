@@ -8,6 +8,8 @@ import { sendToken } from 'store/slices/auth/action';
 import { MainLayout } from 'layouts';
 import {
   Empty404,
+  FaqPage,
+  RoadPage,
   LoginPage,
   HomePage,
   ProfilePage,
@@ -75,6 +77,14 @@ const routes = [
             element: <ProfilePage />,
           },
         ],
+      },
+      {
+        path: '/faq',
+        element: <FaqPage />,
+      },
+      {
+        path: '/road',
+        element: <RoadPage />,
       },
       {
         path: '*',

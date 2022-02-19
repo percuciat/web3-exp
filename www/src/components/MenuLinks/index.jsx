@@ -5,17 +5,17 @@ import { HashLink } from 'react-router-hash-link';
 import styles from './MenuLinks.module.css';
 
 const anchorsMenu = [
-  {
+  /*  {
     name: 'About',
     hash: '/#about',
-  },
+  }, */
   {
     name: 'Road map',
-    hash: '/#road',
+    hash: '/road',
   },
   {
     name: 'Faq',
-    hash: '/#faq',
+    hash: '/faq',
   },
 ];
 

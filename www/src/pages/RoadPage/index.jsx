@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { Title } from 'components';
-import img1 from '../../../../assets/img/imgRoad1.png';
-import img2 from '../../../../assets/img/imgRoad2.png';
-import img3 from '../../../../assets/img/imgRoad3.png';
-import styles from './Road.module.css';
+import img1 from 'assets/img/imgRoad1.png';
+import img2 from 'assets/img/imgRoad2.png';
+import img3 from 'assets/img/imgRoad3.png';
+import styles from './RoadPage.module.css';
 
-const Road = () => {
+const RoadPage = () => {
   return (
     <section id="road">
       <Container className={styles.wrapper}>
@@ -73,4 +73,4 @@ const Road = () => {
     </section>
   );
 };
-export default Road;
+export default RoadPage;
