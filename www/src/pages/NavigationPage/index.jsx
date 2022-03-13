@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigation } from 'containers';
-import { selectUserData } from 'store/slices/auth';
+import { selectUserData } from 'store/slices/user';
 
 const NavigationPage = (props) => {
   const userData = useSelector(selectUserData);

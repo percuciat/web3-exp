@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProfileData } from 'store/slices/auth/action';
-import { selectUserData, selectUserProfile } from 'store/slices/auth';
+import { getProfileData } from 'store/slices/user/actions';
+import { selectUserProfile, selectUserData } from 'store/slices/user';
 import { useOutletContext } from 'react-router-dom';
 import { ProfileForm } from 'containers';
 import { WaxBtn } from 'components';

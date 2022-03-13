@@ -6,7 +6,10 @@ import store from './store';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { setInstanceAxiosWithStore } from 'utils/api/AxiosInstance';
 import './index.css';
+
+setInstanceAxiosWithStore(store);
 
 ReactDOM.render(
   <React.StrictMode>

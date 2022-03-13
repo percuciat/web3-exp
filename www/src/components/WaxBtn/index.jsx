@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsActiveUser, updateUser } from 'store/slices/wax';
-import { updateAccountBalance, makeTransaction } from 'store/slices/wax/action';
+import { updateAccountBalance, makeTransaction } from 'store/slices/wax/actions';
 
 const WaxBtn = ({ ual: { activeUser, activeAuthenticator, logout, showModal } }) => {
   const dispatch = useDispatch();

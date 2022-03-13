@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logoutUser } from 'store/slices/auth/action';
+import { logoutUser } from 'store/slices/auth/actions';
 
 const WaxLogoutBtn = ({ ual: { activeUser, activeAuthenticator, logout } }) => {
   const dispatch = useDispatch();

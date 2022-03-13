@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Form as FormFinal, Field, useField } from 'react-final-form';
 import { useDispatch } from 'react-redux';
-import { updateProfile } from 'store/slices/auth/action';
+import { updateProfile } from 'store/slices/user/actions';
 import { Error, AlertForm } from 'components';
 
 const ProfileForm = (props) => {

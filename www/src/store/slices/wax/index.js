@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { updateAccountName, updateAccountBalance, makeTransaction } from './action';
+import { updateAccountName, updateAccountBalance, makeTransaction } from './actions';
 
 const { actions, reducer } = createSlice({
   name: 'wax',
@@ -25,7 +25,7 @@ const { actions, reducer } = createSlice({
   extraReducers: (builder) => {
     builder
 
-      .addCase(updateAccountName.pending, (state, action) => {
+      .addCase(updateAccountName.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(updateAccountName.fulfilled, (state, action) => {
@@ -38,7 +38,7 @@ const { actions, reducer } = createSlice({
         console.log('REJECTED UPDATE USER--', action);
       })
 
-      .addCase(updateAccountBalance.pending, (state, action) => {
+      .addCase(updateAccountBalance.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(updateAccountBalance.fulfilled, (state, action) => {
@@ -50,10 +50,10 @@ const { actions, reducer } = createSlice({
         state.isLoading = false;
       })
 
-      .addCase(makeTransaction.pending, (state, action) => {
+      .addCase(makeTransaction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(makeTransaction.fulfilled, (state, action) => {
+      .addCase(makeTransaction.fulfilled, (state) => {
         state.isLoading = false;
       })
       .addCase(makeTransaction.rejected, (state, action) => {

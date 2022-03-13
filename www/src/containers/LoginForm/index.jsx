@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser, loginUser } from 'store/slices/auth/action';
+import { registerUser, loginUser } from 'store/slices/auth/actions';
 import { Error, AlertForm, Title } from 'components';
 import { Form as FormFinal, Field } from 'react-final-form';
+import { useLoginUserMutation, useRegisterUserMutation } from 'store/slices/auth';
+import { getUserData } from 'store/slices/user/actions';
 import styles from './LoginForm.module.css';
 
 const LoginForm = (props) => {
@@ -21,6 +23,41 @@ const LoginForm = (props) => {
     }
     return errors;
   };
+  /*const [loginUser, { isLoading, isSuccess, isError }] = useLoginUserMutation();
+  const [
+    registerUser,
+    { isLoading: isLoadingRegister, isSuccess: isSuccessRegister, isError: isErrorRegister },
+  ] = useRegisterUserMutation();
+
+  const handleAuthorize = async (values) => {
+    setBackendValidation(null);
+    let requestAuthorize;
+    if (active.name === 'login') {
+      await loginUser({
+        email: values.email,
+        password: values.password,
+      }).unwrap();
+    } else {
+      await registerUser({
+        email: values.email,
+        password: values.password,
+        password_confirmation: values.password_confirmation,
+      }).unwrap();
+    }
+
+    dispatch(requestAuthorize)
+      .then((r) => {
+        console.log('login form:', r);
+        if (r.payload.errors) {
+          setBackendValidation(r.payload);
+        } else {
+          callback();
+        }
+      })
+      .catch((e) => {
+        console.log('err login', e);
+      });
+  };*/
 
   const handleAuthorize = (values) => {
     setBackendValidation(null);
@@ -40,12 +77,12 @@ const LoginForm = (props) => {
 
     dispatch(requestAuthorize)
       .then((r) => {
-        //TODO: for async operation - need fix
         console.log('login form:', r);
         if (r.payload.errors) {
           setBackendValidation(r.payload);
         } else {
           callback();
+          dispatch(getUserData());
         }
       })
       .catch((e) => {

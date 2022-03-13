@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeTransaction } from 'store/slices/wax/action';
-import { startMine } from 'store/slices/mine/action';
+import { makeTransaction } from 'store/slices/wax/actions';
+import { startMine } from 'store/slices/mine/actions';
 const WaxMineBtn = ({ ual: { activeUser } }) => {
   const dispatch = useDispatch();
   const testHandler = () => {

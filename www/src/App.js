@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UALProvider } from 'ual-reactjs-renderer';
 import { Anchor } from 'ual-anchor';
 import { Wax } from '@eosdacio/ual-wax';
-import { getUserData } from './store/slices/auth/action';
-import { selectIsAuth, selectUserData, selectIsLoading } from './store/slices/auth/';
+import { getUserData } from './store/slices/user/actions';
+import { selectIsAuth, selectIsLoading } from './store/slices/auth/';
+import { selectUserData } from './store/slices/user/';
 import routes from './routes';
 import { OverlayngPortal } from 'highComponents';
 
@@ -16,11 +17,11 @@ const App = () => {
   const userData = useSelector(selectUserData);
   const isLoading = useSelector(selectIsLoading);
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (auth && !userData) {
       dispatch(getUserData());
     }
-  }, [dispatch, auth, userData]);
+  }, [dispatch, auth, userData]); */
 
   /*  if (isLoading) {
     return <OverlayngPortal />;

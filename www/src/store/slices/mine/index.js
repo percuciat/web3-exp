@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { startMine } from './action';
+import { startMine } from './actions';
 
 const { actions, reducer } = createSlice({
   name: 'mine',

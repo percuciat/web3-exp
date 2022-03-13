@@ -3,7 +3,7 @@ import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsAuth } from 'store/slices/auth';
 import { withUAL } from 'ual-reactjs-renderer';
-import { sendToken } from 'store/slices/auth/action';
+import { sendToken } from 'store/slices/auth/actions';
 
 import { MainLayout } from 'layouts';
 import {

@@ -6,7 +6,7 @@ import {
   selectAccountBalance,
   setActiveUser,
 } from 'store/slices/wax';
-import { updateAccountBalance } from 'store/slices/wax/action';
+import { updateAccountBalance } from 'store/slices/wax/actions';
 import { updateUser } from 'store/slices/wax';
 import styles from './WaxLoginInfo.module.css';
 
