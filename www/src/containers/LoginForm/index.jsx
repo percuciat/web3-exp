@@ -9,7 +9,7 @@ import { getUserData } from 'store/slices/user/actions';
 import styles from './LoginForm.module.css';
 
 const LoginForm = (props) => {
-  const { callback } = props;
+  const { callbackCloseModal } = props;
   const [active, setActive] = useState({
     name: 'login',
   });
@@ -81,8 +81,8 @@ const LoginForm = (props) => {
         if (r.payload.errors) {
           setBackendValidation(r.payload);
         } else {
-          callback();
           dispatch(getUserData());
+          callbackCloseModal();
         }
       })
       .catch((e) => {
