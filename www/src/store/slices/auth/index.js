@@ -13,11 +13,14 @@ const { actions, reducer } = createSlice({
     token: null,
     errorsObj: null,
   },
-  reducers: {},
+  reducers: {
+    setNewToken(state, action) {
+      state.token = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     function authUser(state, action) {
       state.isAuth = true;
-      state.token = action.payload.token;
       setRefreshToken(action.payload.refreshToken);
       state.isLoading = false;
     }
@@ -61,6 +64,8 @@ const { actions, reducer } = createSlice({
 
 export const selectIsAuth = (state) => state.auth.isAuth;
 export const selectIsLoading = (state) => state.auth.isLoading;
+export const selectAuthToken = (state) => state.auth.token;
+export const { setNewToken } = actions;
 
 export default reducer;
 

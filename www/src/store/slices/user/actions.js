@@ -29,7 +29,7 @@ export const getProfileData = createAsyncThunk(
 
 export const updateProfile = createAsyncThunk(
   'user/UPDATE_PROFILE',
-  async (wallet, { getState, dispatch, rejectWithValue }) => {
+  async (wallet, { rejectWithValue }) => {
     try {
       const response = await makeRequest('put', { url: 'api/profile', data: { wallet } });
       response.wallet = wallet;

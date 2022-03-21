@@ -16,3 +16,5 @@ export const MOBILE_MEDIA = {
 };
 
 export const NAME_LOGO = 'The Labyrinth';
+
+export const timeExpire = 1800000;
